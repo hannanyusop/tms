@@ -75,6 +75,15 @@
                             <li><a href="#"><i data-feather="mail"></i>Inbox</a></li>
                             <li><a href="#"><i data-feather="lock"></i>Lock Screen</a></li>
                             <li><a href="#"><i data-feather="settings"></i>Settings</a></li>
+                            <x-utils.link
+                                class="dropdown-item"
+                                icon="c-icon mr-2 cil-account-logout"
+                                onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                                <x-slot name="text">
+                                    @lang('Logout')
+                                    <x-forms.post :action="route('frontend.auth.logout')" id="logout-form" class="d-none" />
+                                </x-slot>
+                            </x-utils.link>
                             <li><a href="#"><i data-feather="log-out"></i>Logout</a></li>
                         </ul>
                     </li>
