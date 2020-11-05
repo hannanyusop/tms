@@ -1,6 +1,7 @@
 <?php
 
 use Carbon\Carbon;
+use App\Models\Utility;
 
 if (! function_exists('appName')) {
     /**
@@ -50,25 +51,48 @@ if (! function_exists('homeRoute')) {
         return 'frontend.index';
     }
 }
-//
-//if(! function_exists('slackSendNotification')){
-//
-//    function slackSendNotification($message){
-//
-//        $ch = curl_init("https://slack.com/api/chat.postMessage");
-//        $data = http_build_query([
-//            "token" => env('SLACK_NOTIFICATION_WEBHOOK'),
-//            "channel" => '#random',
-//            "text" => $message,
-//            "username" => "John Doe",
-//        ]);
-//        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
-//        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-//        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-//        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-//        $result = curl_exec($ch);
-//        curl_close($ch);
-//
-//        return $result;
-//    }
-//}
+
+if(!function_exists('notificationTypes')){
+
+    function notificationTypes(){
+
+        $types = [
+            'slack' => true,
+            'email' => true,
+            'sms' => false,
+            'whatsapp' => false
+        ];
+
+        return $types;
+    }
+}
+
+if(! function_exists('slackSendNotification')){
+
+    function slackSendNotification($message){
+
+
+        $data = array(
+            'channel'     => Utility::getValByName('noty_slack_channel'),
+            'username'    => Utility::getValByName('noty_slack_username'),
+            'text'        => $message,
+            'icon_emoji'  => Utility::getValByName('noty_slack_icon_emoji'),
+        );
+
+        $data_string = json_encode($data);
+
+
+        $ch = curl_init(Utility::getValByName('noty_slack_webhook'));
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+                'Content-Type: application/json',
+                'Content-Length: ' . strlen($data_string))
+        );
+
+        $result = curl_exec($ch);
+
+        return $result;
+    }
+}
