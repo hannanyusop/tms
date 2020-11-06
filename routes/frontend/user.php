@@ -4,12 +4,10 @@ use App\Http\Controllers\Frontend\User\AccountController;
 use App\Http\Controllers\Frontend\User\DashboardController;
 use App\Http\Controllers\Frontend\User\ProfileController;
 use Tabuna\Breadcrumbs\Trail;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Frontend\User\Lorry\LorryController;
 
-/*
- * These frontend controllers require the user to be logged in
- * All route names are prefixed with 'frontend.'
- * These routes can not be hit if the user has not confirmed their email
- */
+
 Route::group(['as' => 'user.', 'middleware' => ['auth', 'password.expires', config('boilerplate.access.middleware.verified')]], function () {
     Route::get('dashboard', [DashboardController::class, 'index'])
         ->middleware('is_user')
@@ -27,4 +25,10 @@ Route::group(['as' => 'user.', 'middleware' => ['auth', 'password.expires', conf
         });
 
     Route::patch('profile/update', [ProfileController::class, 'update'])->name('profile.update');
+
+    Route::group(['prefix' => 'lorry/', 'as' => 'lorry.'], function (){
+
+        Route::get('', [LorryController::class, 'index'])->name('index');
+    });
+
 });

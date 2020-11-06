@@ -121,16 +121,15 @@
                 </div>
                 <ul class="sidebar-menu">
 
+                    <li><a class="sidebar-header" href="{{ route('frontend.user.dashboard') }}"  target="_blank"><i data-feather="home"></i><span> {{ __('Dashboard') }}</span></a></li>
+                    <li><a class="sidebar-header" href="#"><i data-feather="alert-triangle"></i><span> {{ __('Announcement') }}</span></a></li>
+                    <li><a class="sidebar-header" href="{{ route('frontend.user.lorry.index') }}"><i data-feather="truck"></i><span> {{ __('Lorry') }}</span></a></li>
                     <li class="">
-                        <a class="sidebar-header" href="#"><i data-feather="home"></i><span>Dashboard</span>
-                            <span class="badge badge-pill badge-primary">6</span><i class="fa fa-angle-right pull-right"></i>
-                        </a>
+                        <a class="sidebar-header" href="#"><i data-feather="settings"></i><span>{{ __('System Setup') }}</span><i class="fa fa-angle-right pull-right"></i></a>
                         <ul class="sidebar-submenu">
                             <li><a href="#" class=""><i class="fa fa-circle"></i>E-commerce</a></li>
                         </ul>
                     </li>
-
-                    <li><a class="sidebar-header" href="#"  target="_blank"><i data-feather="settings"></i><span> Maintenance</span></a></li>
                 </ul>
             </div>
         </div>
