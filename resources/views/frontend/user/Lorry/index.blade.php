@@ -3,38 +3,48 @@
 @section('title', __('Lorry'))
 
 @section('content')
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="card">
-                <div class="card-header">
-                    <h5>Table head options</h5><span>Similar to tables and dark tables, use the modifier classes <code>.bg-*</code>and  <code>.thead-light</code> to make <code>thead</code> appear light or dark gray.</span>
+    <div class="card">
+        <div class="card-header"><div class="row">
+                <div class="col-sm-6">
                 </div>
-                <div class="card-block row">
-                    <div class="col-sm-12 col-lg-12 col-xl-12">
-                        <div class="table-responsive">
-                            <table class="table table-border-vertical">
-                                <thead class="thead-light">
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">{{ __('Plat Number') }}</th>
-                                    <th scope="col">{{ __('Model') }}</th>
-                                    <th scope="col">{{ __('Class') }}</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach($lorries as $key => $lorry)
-                                    <tr>
-                                        <th scope="row">{{ $key+1 }}</th>
-                                        <td>{{ $lorry->plat_number }}</td>
-                                        <td>{{ $lorry->brand."-".$lorry->model }}</td>
-                                        <td>{{ $lorry->class }}</td>
-                                    </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
+                <div class="col-sm-6">
+                    <div class="pull-right d-flex buttons-right">
+                        <div class="right-header">
+                            <a href="{{ route('frontend.user.lorry.create', ['step' => 1]) }}" class="btn btn-info">Add Lorry</a>
                         </div>
                     </div>
                 </div>
+            </div>
+
+        </div>
+        <div class="card-body">
+            <div class="order-history table-responsive">
+                <table class="table table-bordernone display" id="basic-1">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">{{ __('Image') }}</th>
+                        <th scope="col">{{ __('Plate Number') }}</th>
+                        <th scope="col">{{ __('Model') }}</th>
+                        <th scope="col">{{ __('Class') }}</th>
+                        <th scope="col"><i class="fa fa-angle-down"></i></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($lorries as $key => $lorry)
+                        <tr>
+                            <td>{{ $key+1 }}</td>
+                            <td><img class="img-fluid img-60" src="{{ asset('assets/images/product/1.png') }}"></td>
+                            <td>{{ $lorry->plat_number }}</td>
+                            <td>{{ $lorry->brand."-".$lorry->model }}</td>
+                            <td>{{ $lorry->class }}</td>
+                            <td>
+                                <a href="{{ route('frontend.user.lorry.view', $lorry->id) }}" class="btn btn-info">View</a>
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

@@ -28,6 +28,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/feather-icon.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/bootstrap.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/datatables.css') }}">
 {{--    <link rel="stylesheet" type="text/css" id="color" href="{{ asset('assets/css/light-1.css') }}" media="screen">--}}
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/responsive.css') }}">  </head>
 <body main-theme-layout="main-theme-layout-1">
@@ -227,6 +228,9 @@
 
 <script src="{{ asset('assets/js/chat-menu.js') }}"></script>
 <script src="{{ asset('assets/js/tooltip-init.js') }}"></script>
+
+<script src="{{ asset('assets/js/datatable/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('assets/js/datatable/datatables/datatable.custom.js') }}"></script>
 
 <script src="{{ asset('assets/js/script.js') }}"></script>
 <script src="{{ asset('assets/js/theme-customizer/customizer.js') }}"></script>

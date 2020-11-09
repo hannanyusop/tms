@@ -96,3 +96,11 @@ if(! function_exists('slackSendNotification')){
         return $result;
     }
 }
+
+if(!function_exists('displayPrice')){
+
+    function displayPrice($price){
+
+        return "RM".number_format($price,'2');
+    }
+}

@@ -29,6 +29,12 @@ Route::group(['as' => 'user.', 'middleware' => ['auth', 'password.expires', conf
     Route::group(['prefix' => 'lorry/', 'as' => 'lorry.'], function (){
 
         Route::get('', [LorryController::class, 'index'])->name('index');
+        Route::get('create', [LorryController::class, 'create'])->name('create');
+        Route::post('create', [LorryController::class, 'insert'])->name('insert');
+        Route::get('{id}', [LorryController::class, 'view'])->name('view');
+
+
+
     });
 
 });
