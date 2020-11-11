@@ -15,7 +15,7 @@ class Lorry extends Model{
 
     public function insurances(){
         return $this->hasMany(LorryInsurance::class, 'lorry_id', 'id')
-            ->where('id', 'DESC')->get();
+            ->orderBy('id', 'DESC')->get();
     }
 
     public function latestServices(){
@@ -25,7 +25,7 @@ class Lorry extends Model{
 
     public function services(){
         return $this->hasMany(LorryService::class, 'lorry_id', 'id')
-            ->where('id', 'DESC')->get();
+            ->orderBy('id', 'DESC')->get();
     }
 
     public function latestRepair(){
@@ -35,7 +35,7 @@ class Lorry extends Model{
 
     public function repairs(){
         return $this->hasMany(LorryRepair::class, 'lorry_id', 'id')
-            ->where('id', 'DESC')->get();
+            ->orderBy('id', 'DESC')->get();
     }
 
     public function transactions(){

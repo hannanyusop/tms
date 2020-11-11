@@ -2,6 +2,7 @@
 
 use Carbon\Carbon;
 use App\Models\Utility;
+use App\Models\LorryTransaction;
 
 if (! function_exists('appName')) {
     /**
@@ -103,4 +104,77 @@ if(!function_exists('displayPrice')){
 
         return "RM".number_format($price,'2');
     }
+}
+
+if(!function_exists('insertTransaction')){
+
+    function insertTransaction($lorry_id, $reference_id, $type, $description, $debit, $credit){
+
+        $transaction = new LorryTransaction();
+
+        $transaction->lorry_id = $lorry_id;
+        $transaction->reference_id = $reference_id;
+        $transaction->type = $type;
+        $transaction->description = $description;
+        $transaction->debit = $debit;
+        $transaction->credit = $credit;
+        $transaction->statement_balance = 0.00;
+
+        $transaction->save();
+
+        return true;
+
+    }
+
+}
+
+if(!function_exists('updateTransaction')){
+
+    function updateTransaction($lorry_id, $type, $reference_id, $description = null, $debit = null, $credit = null){
+
+        $transaction = LorryTransaction::where([
+            'lorry_id' => $lorry_id,
+            'type' => $type,
+            'reference_id' => $reference_id
+        ])->first();
+
+        if($transaction){
+
+            if($delete){
+                $transaction->delete();
+                return true;
+            }
+
+            if(!is_null($description)){
+                $transaction->description = $description;
+            }
+
+            if(!is_null($description)){
+                $transaction->debit = $debit;
+            }
+
+            if((!is_null($description))){
+                $transaction->credit = $credit;
+            }
+
+            $transaction->save();
+            return true;
+        }
+        return false;
+    }
+
+}
+
+if(!function_exists('deleteTransaction')){
+
+    function deleteTransaction($lorry_id, $type, $reference_id){
+
+        LorryTransaction::where([
+            'lorry_id' => $lorry_id,
+            'type' => $type,
+            'reference_id' => $reference_id
+        ])->delete();
+        return true;
+    }
+
 }

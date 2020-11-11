@@ -7,7 +7,7 @@
         <div class="card">
             <div class="row product-page-main">
                 <div class="col-xl-4">
-                    <img src="{{ asset($lorry->image) }}" class="img-fluid">
+                    <img src="{{ (!is_null($lorry->image))?asset($lorry->image) : "https://mytruck.my/uf/adata/1000_6265_928e7c14cef3c49a0cb1e635322951fc.jpeg" }}" class="img-fluid">
                 </div>
                 <div class="col-xl-8">
                     <div class="product-page-details">
@@ -119,14 +119,64 @@
                     </ul>
                     <div class="tab-content" id="top-tabContent">
                         <div class="tab-pane fade" id="top-home" role="tabpanel" aria-labelledby="top-home-tab">
-                            <p class="mb-0 m-t-20">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
-                            <p class="mb-0 m-t-20">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Date</th>
+                                        <th>Road Tax Price</th>
+                                        <td>Expired Date</td>
+                                    </tr>
+                                    @foreach($lorry->insurances() as $key => $insurance)
+                                        <tr>
+                                            <th>{{ $key+1 }}</th>
+                                            <th>{{ $insurance->created_at }}</th>
+                                            <td>{{ displayPrice($insurance->roadtax_price) }}</td>
+                                            <td>{{ $insurance->expire_date }}</td>
+                                        </tr>
+                                    @endforeach
+                                </table>
+                            </div>
                         </div>
                         <div class="tab-pane fade" id="top-profile" role="tabpanel" aria-labelledby="profile-top-tab">
-                            <p class="mb-0 m-t-20">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</p>
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Date</th>
+                                        <th>Road Tax Price</th>
+                                        <th>Next Service(KM)</th>
+                                    </tr>
+                                    @foreach($lorry->services() as $key => $service)
+                                        <tr>
+                                            <td>{{ $key+1 }}</td>
+                                            <th>{{ $insurance->created_at }}</th>
+                                            <td>{{ displayPrice($service->amount) }}</td>
+                                            <td>{{ $service->mileage_next_service }}</td>
+                                        </tr>
+                                    @endforeach
+                                </table>
+                            </div>
                         </div>
                         <div class="tab-pane fade active show" id="top-contact" role="tabpanel" aria-labelledby="contact-top-tab">
-                            <p class="mb-0 m-t-20">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</p>
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Date</th>
+                                        <th>Amount</th>
+                                        <th>Remark</th>
+                                    </tr>
+                                    @foreach($lorry->repairs() as $key => $repair)
+                                        <tr>
+                                            <td>{{ $key+1 }}</td>
+                                            <th>{{ $repair->created_at }}</th>
+                                            <td>{{ displayPrice($repair->amount) }}</td>
+                                            <td>{{ $repair->remark }}</td>
+                                        </tr>
+                                    @endforeach
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
