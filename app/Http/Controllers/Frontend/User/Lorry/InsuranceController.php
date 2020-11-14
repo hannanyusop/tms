@@ -4,8 +4,6 @@
  use App\Http\Controllers\Controller;
  use App\Models\Lorry;
  use App\Models\LorryInsurance;
- use App\Models\LorryService;
- use App\Models\ServiceItem;
  use Illuminate\Http\Request;
 
  class InsuranceController extends Controller{
@@ -22,10 +20,10 @@
 
          $lorry = Lorry::findOrFail($lorry_id);
 
-         $validate = $request->validate([
+         $request->validate([
              'expire_date' => 'required',
              'roadtax_price' => '',
-             'roatax_document' => '',
+             'roadtax_document' => '',
              'insurance_price' => '',
              'insurance_document' => '',
              'amount' => '',
@@ -38,7 +36,7 @@
          $insurance->is_read = 0;
          $insurance->expire_date = $request->expire_date;
          $insurance->roadtax_price = $request->roadtax_price;
-         $insurance->roatax_document = $request->roatax_document; #uploadfile
+         $insurance->roadtax_document = $request->roadtax_document; #uploadfile
          $insurance->insurance_price = $request->insurance_price;
          $insurance->insurance_document = $request->insurance_document; #upload file
          $insurance->amount = $request->roadtax_price+$request->insurance_price;
@@ -46,7 +44,7 @@
 
          if($insurance->save()){
              insertTransaction($lorry->id, $insurance->id, 'insurance', $insurance->remark, 0.00,$insurance->amount);
-             return redirect()->route('frontend.user.lorry.view', $lorry->id)->withFlashSuccess('Service record inserted!');
+             return redirect()->route('frontend.user.lorry.view', $lorry->id)->withFlashSuccess('Insurance record inserted!');
          }
 
      }
@@ -66,7 +64,7 @@
          $validate = $request->validate([
              'expire_date' => 'required',
              'roadtax_price' => '',
-             'roatax_document' => '',
+             'roadtax_document' => '',
              'insurance_price' => '',
              'insurance_document' => '',
              'amount' => '',
@@ -76,7 +74,7 @@
 
          $insurance->expire_date = $request->expire_date;
          $insurance->roadtax_price = $request->roadtax_price;
-         $insurance->roatax_document = $request->roatax_document; #uploadfile
+         $insurance->roadtax_document = $request->roadtax_document; #uploadfile
          $insurance->insurance_price = $request->insurance_price;
          $insurance->insurance_document = $request->insurance_document; #upload file
          $insurance->amount = $request->roadtax_price+$request->insurance_price;
@@ -91,7 +89,7 @@
      public function delete($id){
 
          $insurance = LorryInsurance::findOrFail($id);
-         
+
          if($insurance->delete()){
              deleteTransaction($insurance->lorry_id, 'insurance', $insurance->id);
              return redirect()->route('frontend.user.lorry.view', $insurance->lorry_id)->withFlashSuccess('Insurance record deleted!');

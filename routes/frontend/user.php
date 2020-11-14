@@ -6,6 +6,9 @@ use App\Http\Controllers\Frontend\User\ProfileController;
 use Tabuna\Breadcrumbs\Trail;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Frontend\User\Lorry\LorryController;
+use App\Http\Controllers\Frontend\User\Lorry\ServiceController;
+use App\Http\Controllers\Frontend\User\Lorry\InsuranceController;
+use App\Http\Controllers\Frontend\User\Lorry\RepairController;
 
 
 Route::group(['as' => 'user.', 'middleware' => ['auth', 'password.expires', config('boilerplate.access.middleware.verified')]], function () {
@@ -32,6 +35,35 @@ Route::group(['as' => 'user.', 'middleware' => ['auth', 'password.expires', conf
         Route::get('create', [LorryController::class, 'create'])->name('create');
         Route::post('create', [LorryController::class, 'insert'])->name('insert');
         Route::get('{id}', [LorryController::class, 'view'])->name('view');
+
+
+        Route::group(['prefix' => 'insurance/', 'as' => 'insurance.'], function (){
+
+            Route::get('create/{lorry_id}', [InsuranceController::class, 'create'])->name('create');
+            Route::post('create/{lorry_id}', [InsuranceController::class, 'insert'])->name('insert');
+            Route::get('edit/{id}', [InsuranceController::class, 'edit'])->name('edit');
+            Route::post('edit/{id}', [InsuranceController::class, 'update'])->name('update');
+            Route::get('delete/{id}', [InsuranceController::class, 'delete'])->name('delete');
+        });
+
+        Route::group(['prefix' => 'service/', 'as' => 'service.'], function (){
+
+            Route::get('create/{lorry_id}', [ServiceController::class, 'create'])->name('create');
+            Route::post('create/{lorry_id}', [ServiceController::class, 'insert'])->name('insert');
+            Route::get('edit/{id}', [ServiceController::class, 'edit'])->name('edit');
+            Route::post('edit/{id}', [ServiceController::class, 'update'])->name('update');
+            Route::get('delete/{id}', [ServiceController::class, 'delete'])->name('delete');
+        });
+
+        Route::group(['prefix' => 'repair/', 'as' => 'repair.'], function (){
+
+            Route::get('create/{lorry_id}', [RepairController::class, 'create'])->name('create');
+            Route::post('create/{lorry_id}', [RepairController::class, 'insert'])->name('insert');
+            Route::get('edit/{id}', [RepairController::class, 'edit'])->name('edit');
+            Route::post('edit/{id}', [RepairController::class, 'update'])->name('update');
+            Route::get('delete/{id}', [RepairController::class, 'delete'])->name('delete');
+        });
+
 
 
 

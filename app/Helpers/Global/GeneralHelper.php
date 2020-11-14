@@ -118,7 +118,6 @@ if(!function_exists('insertTransaction')){
         $transaction->description = $description;
         $transaction->debit = $debit;
         $transaction->credit = $credit;
-        $transaction->statement_balance = 0.00;
 
         $transaction->save();
 

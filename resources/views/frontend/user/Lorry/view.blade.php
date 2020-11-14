@@ -96,9 +96,9 @@
                     </div>
                     <hr>
                     <div class="m-t-15">
-                        <a class="btn btn-primary m-r-10" href="">Service</a>
-                        <a class="btn btn-secondary m-r-10" href="">Renew Insurance</a>
-                        <a class="btn btn-success" href="">Repair</a>
+                        <a class="btn btn-primary m-r-10" href="{{ route('frontend.user.lorry.service.create', $lorry->id) }}">Service</a>
+                        <a class="btn btn-secondary m-r-10" href="{{ route('frontend.user.lorry.insurance.create', $lorry->id) }}">Renew Insurance</a>
+                        <a class="btn btn-success" href="{{ route('frontend.user.lorry.repair.create', $lorry->id) }}">Repair</a>
                     </div>
                 </div>
             </div>
@@ -126,6 +126,7 @@
                                         <th>Date</th>
                                         <th>Road Tax Price</th>
                                         <td>Expired Date</td>
+                                        <td></td>
                                     </tr>
                                     @foreach($lorry->insurances() as $key => $insurance)
                                         <tr>
@@ -133,6 +134,13 @@
                                             <th>{{ $insurance->created_at }}</th>
                                             <td>{{ displayPrice($insurance->roadtax_price) }}</td>
                                             <td>{{ $insurance->expire_date }}</td>
+                                            <td>
+                                                <a href="{{ route('frontend.user.lorry.insurance.edit', $insurance->id) }}">Edit</a>
+
+                                                <a href="#" class="dropdown-item" data-toggle="tooltip" data-original-title="{{__('Delete')}}" data-confirm="Are You Sure?|This action can not be undone. Do you want to continue?" data-form-id ="delete-form-{{$insurance->id}}" data-confirm-yes="document.getElementById('delete-form-{{$insurance->id}}').submit();"><i class="fas fa-trash"></i> <span>{{__('Delete')}}</span></a>
+                                                <x-forms.post :action="route('frontend.user.lorry.insurance.delete', $insurance->id)" id="delete-form-{{ $insurance->id }}">
+                                                </x-forms.post>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </table>
