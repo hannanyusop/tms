@@ -5,7 +5,9 @@
  use App\Models\Lorry;
  use App\Models\LorryService;
  use App\Models\ServiceItem;
+ use Carbon\Carbon;
  use Illuminate\Http\Request;
+ use Illuminate\Support\Facades\Date;
 
  class ServiceController extends Controller{
 
@@ -22,20 +24,19 @@
          $lorry = Lorry::findOrFail($lorry_id);
 
          $validate = $request->validate([
-             'next_service' => 'required',
-             'mileage' => '',
-             'mileage_next_service' => '',
+             'next_service' => 'required|date',
+             'mileage' => 'required',
+             'mileage_next_service' => 'required',
              'amount' => '',
              'payment_method' => '',
-             'payment_reference' => '',
-             'payment_documents' => '',
+             'payment_reference' => 'required',
+             'payment_documents' => 'nullable|file|max:5000',
              'remark' => ''
          ]);
 
-
          $service = new LorryService();
          $service->lorry_id = $lorry->id;
-         $service->next_service = $request->next_service;
+         $service->next_service = Carbon::create($request->next_service);
          $service->is_read = 0;
          $service->mileage = $request->mileage;
          $service->mileage_next_service = $request->mileage_next_service;
@@ -47,16 +48,16 @@
 
          $service->save();
 
-
          $amount = $service->amount;
-         foreach ($request->items as $data){
+
+         foreach ($request->name as $key => $item){
 
              $item = new ServiceItem();
              $item->lorry_service_id = $service->id;
-             $item->name = $data->name;
-             $item->remark = $data->remark;
-             $item->qty = $data->qty;
-             $item->total_price = $data->total_price;
+             $item->name = $request->name[$key];
+             $item->description = $request->description[$key];
+             $item->qty = $request->qty[$key];
+             $item->total_price = $request->price[$key]*$request->qty[$key];
 
              if($item->save()){
                  $amount += $item->total_price;
@@ -125,14 +126,22 @@
 
      }
 
-     public function delete($id){
+     public function delete(Request $request, $id){
 
-         $service = LorryService::findOrFail($id);
+         if($request->ajax()){
 
-         if($service->delete()){
-             deleteTransaction($service->lorry_id, 'service', $service->id);
+             $service = LorryService::findOrFail($id);
+
+             if($service->delete()){
+                 ServiceItem::where('lorry_service_id', $service->id)->delete();
+                 deleteTransaction($service->lorry_id, 'service', $service->id);
+                 return response()->json(['success' => true, 'message' => "Service record deleted!"]);
+             }else{
+
+                 return response()->json(['success' => true, 'message' => "Failed to delete Service Record!"]);
+             }
+         }else{
+             return response()->json(['error' => false, 'message' => "Invalid method!"]);
          }
-
-         return true;
      }
  }

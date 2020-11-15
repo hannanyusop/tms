@@ -23,9 +23,9 @@
          $lorry = Lorry::findOrFail($lorry_id);
 
          $validate = $request->validate([
-             'payment_method' => '',
-             'payment_reference' => '',
-             'payment_recepit' => '',
+             'payment_method' => 'required',
+             'payment_reference' => 'required',
+             'payment_documents' => 'nullable|file|max:5000',
              'amount' => '',
              'remark' => '',
              'documents' => '',
@@ -36,7 +36,7 @@
          $repair->lorry_id = $lorry->id;
          $repair->payment_method = $request->payment_method;
          $repair->payment_reference = $request->payment_reference;
-         $repair->payment_recepit = $request->payment_recepit;
+         $repair->payment_documents = $request->payment_documents;
          $repair->amount = 0.00;
          $repair->remark = $request->remark;
          $repair->documents = $request->documents; #TODO: upload
@@ -45,14 +45,14 @@
 
          $amount = $repair->amount;
 
-         foreach ($request->items as $item){
+         foreach ($request->name as $key => $item){
 
              $item = new RepairItem();
              $item->lorry_repair_id = $repair->id;
-             $item->name = $item['name'];
-             $item->remark = $item['remark'];
-             $item->qty = $item['qty'];
-             $item->total_price = $item['total_price'];
+             $item->name = $request->name[$key];
+             $item->description = $request->description[$key];
+             $item->qty = $request->qty[$key];
+             $item->total_price = $request->price[$key]*$request->qty[$key];
 
              if($item->save()){
                  $amount += $item->total_price;
@@ -116,14 +116,23 @@
          return redirect()->route('frontend.user.lorry.view', $request->lorry_id)->withFlashSuccess('Repair & Maintenance record updated!');
      }
 
-     public function delete($id){
+     public function delete(Request  $request, $id){
 
-         $repair = LorryRepair::findOrFail($id);
+         if($request->ajax()){
 
-         if($repair->delete()){
-             deleteTransaction($repair->lorry_id, 'service', $repair->id);
+             $repair = LorryRepair::findOrFail($id);
+
+             if($repair->delete()){
+                 RepairItem::where('lorry_repair_id', $repair->id)->delete();
+                 deleteTransaction($repair->lorry_id, 'repair', $repair->id);
+                 return response()->json(['success' => true, 'message' => "Repair & Maintenance record deleted!"]);
+             }else{
+
+                 return response()->json(['success' => true, 'message' => "Failed to delete Repair & Maintenance record!"]);
+             }
+         }else{
+             return response()->json(['error' => false, 'message' => "Invalid method!"]);
          }
 
-         return true;
      }
  }

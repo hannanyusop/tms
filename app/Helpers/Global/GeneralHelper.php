@@ -106,6 +106,14 @@ if(!function_exists('displayPrice')){
     }
 }
 
+if(!function_exists('displayPriceNumber')){
+
+    function displayPriceNumber($price){
+
+        return number_format($price,'2');
+    }
+}
+
 if(!function_exists('insertTransaction')){
 
     function insertTransaction($lorry_id, $reference_id, $type, $description, $debit, $credit){
@@ -139,10 +147,6 @@ if(!function_exists('updateTransaction')){
 
         if($transaction){
 
-            if($delete){
-                $transaction->delete();
-                return true;
-            }
 
             if(!is_null($description)){
                 $transaction->description = $description;
@@ -174,6 +178,40 @@ if(!function_exists('deleteTransaction')){
             'reference_id' => $reference_id
         ])->delete();
         return true;
+    }
+
+}
+
+if(!function_exists('paymentMethod')){
+
+    function paymentMethod($method = null){
+
+        $methods = [
+            1 => "CASH",
+            2 => "CHEQUE",
+            3 => "LOAN"
+        ];
+
+        return (is_null($method))? $methods : $methods[$method];
+    }
+
+}
+
+if(!function_exists('getLorryImage')){
+
+    function getLorryImage($lorry_id){
+
+        return "https://mytruck.my/uf/adata/1000_6265_928e7c14cef3c49a0cb1e635322951fc.jpeg";
+    }
+
+}
+
+if(!function_exists('reformatDateTime')){
+
+    function reformatDateTime($string, $format = "d/m/Y h:m:i A"){
+
+        return Carbon::parse($string)->format($format);
+
     }
 
 }

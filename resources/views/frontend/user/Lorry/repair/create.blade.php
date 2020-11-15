@@ -1,6 +1,6 @@
 @extends('frontend.layouts.app')
 
-@section('title', __('Service Record'))
+@section('title', __('New Repair Record'))
 
 
 @php
@@ -15,7 +15,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
-                    <x-forms.post :action="route('frontend.user.lorry.service.insert', $lorry->id)">
+                    <x-forms.post :action="route('frontend.user.lorry.repair.insert', $lorry->id)">
                         <div class="">
 
                             <div class="alert alert-light dark" role="alert">
@@ -31,37 +31,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <hr><h5>Service Information</h5>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label" for="next_service">{{ __('Next Service') }}<i class="text-danger">*</i></label>
-                                        <div class="col-sm-3">
-                                            <input class="datepicker-here form-control digits" type="text" data-language="en" aria-describedby="basic-addon2" name="next_service" id="next_service" value="{{ old('next_service')? old('next_service') : date('m/d/Y')   }}" required>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label" for="mileage">{{ __('Current Mileage') }}<i class="text-danger">*</i></label>
-                                        <div class="col-sm-3">
-                                            <input class="form-control digits" type="number" name="mileage" id="mileage" value="{{ old('mileage')? old('mileage') : 0  }}" required>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label" for="mileage_next_service">{{ __('Next Service Mileage') }}<i class="text-danger">*</i></label>
-                                        <div class="col-sm-3">
-                                            <input class="form-control digits" type="number" name="mileage_next_service" id="mileage_next_service" value="{{ old('mileage_next_service')? old('mileage_next_service') : 0  }}" required>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <hr><h5>Repair & Maintenance Information</h5>
+
                             <div class="row">
                                 <div class="col">
                                     <div class="form-group row">

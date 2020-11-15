@@ -86,15 +86,19 @@
          }
      }
 
-     public function delete($id){
+     public function delete(Request $request, $id){
 
-         $insurance = LorryInsurance::findOrFail($id);
+         if($request->ajax()){
+             $insurance = LorryInsurance::findOrFail($id);
 
-         if($insurance->delete()){
-             deleteTransaction($insurance->lorry_id, 'insurance', $insurance->id);
-             return redirect()->route('frontend.user.lorry.view', $insurance->lorry_id)->withFlashSuccess('Insurance record deleted!');
+             if($insurance->delete()){
+                 deleteTransaction($insurance->lorry_id, 'insurance', $insurance->id);
+
+                 return response()->json(['success' => true, 'message' => "Insurance record deleted!"]);
+             }
+         }else{
+             return response()->json(['success' => false, 'message' => "Invalid method!"]);
+
          }
-
-         return true;
      }
  }

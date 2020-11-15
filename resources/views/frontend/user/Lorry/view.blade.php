@@ -7,7 +7,7 @@
         <div class="card">
             <div class="row product-page-main">
                 <div class="col-xl-4">
-                    <img src="{{ (!is_null($lorry->image))?asset($lorry->image) : "https://mytruck.my/uf/adata/1000_6265_928e7c14cef3c49a0cb1e635322951fc.jpeg" }}" class="img-fluid">
+                    <img src="{{ getLorryImage($lorry->id) }}" class="img-fluid">
                 </div>
                 <div class="col-xl-8">
                     <div class="product-page-details">
@@ -49,7 +49,7 @@
                                     <div class="media static-top-widget">
                                         <div class="align-self-center text-center"><i data-feather="trending-up"></i></div>
                                         <div class="media-body"><span class="m-0">Earnings</span>
-                                            <h4 class="mb-0 counter">{{ displayPrice($lorry->totalDebit()) }}</h4><i class="icon-bg" data-feather="trending-up"></i>
+                                            <h4 class="mb-0">{{ displayPrice($lorry->totalDebit()) }}</h4><i class="icon-bg" data-feather="trending-up"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -61,7 +61,7 @@
                                     <div class="media static-top-widget">
                                         <div class="align-self-center text-center"><i data-feather="trending-down"></i></div>
                                         <div class="media-body"><span class="m-0">Expenses</span>
-                                            <h4 class="mb-0 counter">{{ displayPrice($lorry->totalCredit()) }}</h4><i class="icon-bg" data-feather="trending-down"></i>
+                                            <h4 class="mb-0">{{ displayPrice($lorry->totalCredit()) }}</h4><i class="icon-bg" data-feather="trending-down"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -75,7 +75,7 @@
                                     <div class="media static-top-widget">
                                         <div class="align-self-center text-center"><i class="fa fa-cogs fa-2x"></i></div>
                                         <div class="media-body"><span class="m-0">Next Service</span>
-                                            <h4 class="mb-0 counter">{{ ($lorry->latestServices)? $lorry->latestServices->next_service : "Not Set" }}</h4>
+                                            <h4 class="mb-0">{{ ($lorry->latestServices)? $lorry->latestServices->next_service : "Not Set" }}</h4>
                                         </div>
                                     </div>
                                 </div>
@@ -87,7 +87,7 @@
                                     <div class="media static-top-widget">
                                         <div class="align-self-center text-center"><i class="fa fa-gears fa-2x"></i></div>
                                         <div class="media-body"><span class="m-0">Insurance Expire</span>
-                                            <h4 class="mb-0 counter">{{ ($lorry->latestInsurance)? $lorry->latestInsurance->expire_date : "Not Set" }}</h4>
+                                            <h4 class="mb-0">{{ ($lorry->latestInsurance)? $lorry->latestInsurance->expire_date : "Not Set" }}</h4>
                                         </div>
                                     </div>
                                 </div>
@@ -96,9 +96,9 @@
                     </div>
                     <hr>
                     <div class="m-t-15">
-                        <a class="btn btn-primary m-r-10" href="{{ route('frontend.user.lorry.service.create', $lorry->id) }}">Service</a>
+                        <a class="btn btn-primary m-r-10" href="{{ route('frontend.user.lorry.service.create', $lorry->id) }}">Add Service Record</a>
                         <a class="btn btn-secondary m-r-10" href="{{ route('frontend.user.lorry.insurance.create', $lorry->id) }}">Renew Insurance</a>
-                        <a class="btn btn-success" href="{{ route('frontend.user.lorry.repair.create', $lorry->id) }}">Repair</a>
+                        <a class="btn btn-success" href="{{ route('frontend.user.lorry.repair.create', $lorry->id) }}">Add Repair Record</a>
                     </div>
                 </div>
             </div>
@@ -124,22 +124,24 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Date</th>
+                                        <th>Expired Date</th>
                                         <th>Road Tax Price</th>
-                                        <td>Expired Date</td>
-                                        <td></td>
+                                        <th>Insurance Price</th>
+                                        <th>Amount</th>
+                                        <th></th>
                                     </tr>
                                     @foreach($lorry->insurances() as $key => $insurance)
                                         <tr>
                                             <th>{{ $key+1 }}</th>
                                             <th>{{ $insurance->created_at }}</th>
-                                            <td>{{ displayPrice($insurance->roadtax_price) }}</td>
                                             <td>{{ $insurance->expire_date }}</td>
+                                            <td>{{ displayPrice($insurance->roadtax_price) }}</td>
+                                            <td>{{ displayPrice($insurance->insurance_price) }}</td>
+                                            <td>{{ displayPrice($insurance->amount) }}</td>
                                             <td>
-                                                <a href="{{ route('frontend.user.lorry.insurance.edit', $insurance->id) }}">Edit</a>
+                                                <a class="btn btn-primary btn-sm" href="{{ route('frontend.user.lorry.insurance.edit', $insurance->id) }}">Edit</a>
+                                                <a href="#" class="delete btn btn-danger btn-sm" data-url="{{ route('frontend.user.lorry.insurance.delete', $insurance->id) }}" data-message="Are you sure want to delete this Insurance record?">Delete</a>
 
-                                                <a href="#" class="dropdown-item" data-toggle="tooltip" data-original-title="{{__('Delete')}}" data-confirm="Are You Sure?|This action can not be undone. Do you want to continue?" data-form-id ="delete-form-{{$insurance->id}}" data-confirm-yes="document.getElementById('delete-form-{{$insurance->id}}').submit();"><i class="fas fa-trash"></i> <span>{{__('Delete')}}</span></a>
-                                                <x-forms.post :action="route('frontend.user.lorry.insurance.delete', $insurance->id)" id="delete-form-{{ $insurance->id }}">
-                                                </x-forms.post>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -152,15 +154,21 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Date</th>
-                                        <th>Road Tax Price</th>
+                                        <th>Amount</th>
                                         <th>Next Service(KM)</th>
+                                        <td></td>
                                     </tr>
                                     @foreach($lorry->services() as $key => $service)
                                         <tr>
                                             <td>{{ $key+1 }}</td>
-                                            <th>{{ $insurance->created_at }}</th>
+                                            <th>{{ $service->created_at }}</th>
                                             <td>{{ displayPrice($service->amount) }}</td>
                                             <td>{{ $service->mileage_next_service }}</td>
+                                            <td>
+                                                <a class="btn btn-primary btn-sm" href="{{ route('frontend.user.lorry.service.edit', $service->id) }}">Edit</a>
+                                                <a href="#" class="delete btn btn-danger btn-sm" data-url="{{ route('frontend.user.lorry.service.delete', $service->id) }}" data-message="Are you sure want to delete this Service Record?">Delete</a>
+
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </table>
@@ -174,6 +182,7 @@
                                         <th>Date</th>
                                         <th>Amount</th>
                                         <th>Remark</th>
+                                        <td></td>
                                     </tr>
                                     @foreach($lorry->repairs() as $key => $repair)
                                         <tr>
@@ -181,6 +190,11 @@
                                             <th>{{ $repair->created_at }}</th>
                                             <td>{{ displayPrice($repair->amount) }}</td>
                                             <td>{{ $repair->remark }}</td>
+                                            <td>
+                                                <a class="btn btn-primary btn-sm" href="{{ route('frontend.user.lorry.repair.edit', $repair->id) }}">Edit</a>
+                                                <a href="#" class="delete btn btn-danger btn-sm" data-url="{{ route('frontend.user.lorry.repair.delete', $repair->id) }}" data-message="Are you sure want to delete this Repair & Maintenance Record?">Delete</a>
+
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </table>

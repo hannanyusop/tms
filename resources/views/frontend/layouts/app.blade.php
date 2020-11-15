@@ -29,7 +29,10 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/bootstrap.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/datatables.css') }}">
-{{--    <link rel="stylesheet" type="text/css" id="color" href="{{ asset('assets/css/light-1.css') }}" media="screen">--}}
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/date-picker.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/sweetalert2.css') }}">
+
+    {{--    <link rel="stylesheet" type="text/css" id="color" href="{{ asset('assets/css/light-1.css') }}" media="screen">--}}
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/responsive.css') }}">  </head>
 <body main-theme-layout="main-theme-layout-1">
     <div class="loader-wrapper">
@@ -155,6 +158,7 @@
         </div>
     </div>
 </body>
+@stack('before-scripts')
 <script src="{{ asset('assets/js/jquery-3.2.1.min.js') }}"></script>
 <script src="{{ asset('js/app.js') }}"></script>
 <script src="{{ asset('assets/js/bootstrap/popper.min.js') }}"></script>
@@ -167,10 +171,89 @@
 <script src="{{ asset('assets/js/chat-menu.js') }}"></script>
 <script src="{{ asset('assets/js/tooltip-init.js') }}"></script>
 
+<script src="{{ asset('assets/js/datepicker/date-picker/datepicker.js') }}"></script>
+<script src="{{ asset('assets/js/datepicker/date-picker/datepicker.en.js') }}"></script>
+<script src="{{ asset('assets/js/sweet-alert/sweetalert.min.js') }}"></script>
+
+<script src="{{ asset('assets/js/counter/jquery.waypoints.min.js') }}"></script>
+<script src="{{ asset('assets/js/counter/jquery.counterup.min.js') }}"></script>
+
+
 <script src="{{ asset('assets/js/datatable/datatables/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('assets/js/datatable/datatables/datatable.custom.js') }}"></script>
 
 <script src="{{ asset('assets/js/script.js') }}"></script>
 {{--<script src="{{ asset('assets/js/theme-customizer/customizer.js') }}"></script>--}}
+
+<script type="text/javascript">
+    "use strict";
+    (function($) {
+        "use strict";
+//Minimum and Maxium Date
+        $('#minMaxExample').datepicker({
+            language: 'en',
+            minDate: new Date() // Now can select only dates, which goes after today
+        })
+
+//Disable Days of week
+        var disabledDays = [0, 6];
+
+        $('#disabled-days').datepicker({
+            language: 'en',
+            onRenderCell: function (date, cellType) {
+                if (cellType == 'day') {
+                    var day = date.getDay(),
+                        isDisabled = disabledDays.indexOf(day) != -1;
+                    return {
+                        disabled: isDisabled
+                    }
+                }
+            }
+        })
+    })(jQuery);
+
+    $(".delete").click(function (){
+
+        let data_url = $(this).data('url');
+        let  message = $(this).data('message')
+        swal({
+            // title: "Are you sure?",
+            text: message,
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        }).then((willDelete) => {
+            if (willDelete) {
+                $.ajax({
+                    type: 'GET',
+                    url: data_url,
+                    success: function (results) {
+
+                        if (results.success === true) {
+                            swal("Done!", results.message, "success");
+                            location.reload();
+                        } else {
+                            swal("Error!", results.message, "error");
+                        }
+                    }
+                });
+            } else {
+                // swal("Your imaginary file is safe!");
+            }
+        })
+    });
+
+    (function($) {
+        "use strict";
+        $('.counter').counterUp({
+            delay: 8,
+            time: 1000
+        });
+    })(jQuery);
+
+
+</script>
+@stack('after-scripts')
+
 
 </html>
