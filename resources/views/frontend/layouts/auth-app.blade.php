@@ -1,56 +1,47 @@
+
 <!DOCTYPE html>
-<html lang="en">
-<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+<html lang="en" class="js">
+
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="keywords" content="">
+    <meta charset="utf-8">
     <meta name="author" content="">
-    @yield('meta')
-
-    @stack('before-styles')
-    <link rel="icon" href="{{ asset('assets/images/favicon.png') }}" type="image/x-icon">
-    <link rel="shortcut icon" href="{{ asset('assets/images/favicon.png') }}" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <!-- Fav Icon  -->
+    <link rel="shortcut icon" href="{{ asset('assets/image/logo.png') }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title') | {{ appName() }}</title>
+    <link rel="stylesheet" href="{{ asset('assets/css/dashlite.css') }}?ver=1.4.0">
+    <link id="skin-default" rel="stylesheet" href="{{ asset('assets/css/theme.css') }}?ver=1.4.0">
+</head>
 
-    <link href="https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,500,600,700,800,900" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/fontawesome.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/icofont.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/themify.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/flag-icon.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/feather-icon.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/bootstrap.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.css') }}">
-    <link id="color" rel="stylesheet" href="{{ asset('assets/css/light-1.css') }}" media="screen">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/responsive.css') }}">  </head>
-    @stack('after-styles')
+<body class="nk-body npc-crypto ui-clean pg-auth">
+<!-- app body @s -->
+<div class="nk-app-root">
+    <div class="nk-split nk-split-page nk-split-md">
+        <div class="nk-split-content nk-block-area nk-block-area-column nk-auth-container">
+            <div class="absolute-top-right d-lg-none p-3 p-sm-5">
+                <a href="#" class="toggle btn-white btn btn-icon btn-light" data-target="athPromo"><em class="icon ni ni-info"></em></a>
+            </div>
+            <div class="nk-block nk-block-middle nk-auth-body">
+                <div class="brand-logo pb-5">
+                    <a href="#" class="logo-link">
+                        <img class="logo-light logo-img logo-img-lg" src="{{ asset('assets/image/logo.png') }}" alt="logo">
+                        <img class="logo-dark logo-img logo-img-lg" src="{{ asset('assets/image/logo.png') }}" srcset="./images/logo-dark2x.png 2x" alt="logo-dark">
+                    </a>
+                </div>
+                @include('includes.partials.messages')
+                @yield('content')
 
-<body main-theme-layout="main-theme-layout-1">
-<div class="loader-wrapper">
-    <div class="loader bg-white">
-        <div class="whirly-loader"> </div>
-    </div>
-</div>
-<div class="page-wrapper">
-    @include('includes.partials.messages')
-    @yield('content')
-</div>
-
-@stack('before-scripts')
-<script src="{{ asset('assets/js/jquery-3.2.1.min.js') }}"></script>
-<script src="{{ asset('assets/js/bootstrap/popper.min.js') }}"></script>
-<script src="{{ asset('assets/js/bootstrap/bootstrap.js') }}"></script>
-<script src="{{ asset('assets/js/icons/feather-icon/feather.min.js') }}"></script>
-<script src="{{ asset('assets/js/icons/feather-icon/feather-icon.js') }}"></script>
-<script src="{{ asset('assets/js/sidebar-menu.js') }}"></script>
-<script src="{{ asset('assets/js/config.js') }}"></script>
-<script src="{{ asset('assets/js/script.js') }}"></script>
-@stack('after-scripts')
-
+            </div><!-- .nk-block -->
+        </div><!-- .nk-split-content -->
+        <div class="nk-split-content nk-split-stretch bg-lighter d-flex toggle-break-lg toggle-slide toggle-slide-right" data-content="athPromo" data-toggle-screen="lg" data-toggle-overlay="true">
+        </div><!-- .nk-split-content -->
+    </div><!-- .nk-split -->
+</div><!-- app body @e -->
+<!-- JavaScript -->
+<script src="{{ asset('assets/js/bundle.js') }}?ver=1.4.0"></script>
+<script src="{{ asset('assets/js/scripts.js') }}?ver=1.4.0"></script>
 </body>
 
 </html>

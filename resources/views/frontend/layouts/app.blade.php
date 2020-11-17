@@ -2,16 +2,13 @@
 <html lang="zxx" class="js">
 
 <head>
-    <base href="../../">
     <meta charset="utf-8">
-    <meta name="author" content="Softnio">
+    <meta name="author" content="SirHannan">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="@@page-discription">
-    <!-- Fav Icon  -->
-    <link rel="shortcut icon" href="./images/favicon.png">
-    <!-- Page Title  -->
-    <title>Blank - Layout | DashLite Admin Template</title>
-    <!-- StyleSheets  -->
+    <meta name="description" content="">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="shortcut icon" href="{{ asset('assets/image/logo.png') }}">
+    <title>@yield('title') | {{ appName() }}</title>
     <link rel="stylesheet" href="{{ asset('assets/css/dashlite.css') }}?ver=1.4.0">
     <link id="skin-default" rel="stylesheet" href="{{ asset('assets/css/theme.css') }}?ver=1.4.0">
 </head>
@@ -25,9 +22,8 @@
             <div class="nk-sidebar-element nk-sidebar-head">
                 <div class="nk-sidebar-brand">
                     <a href="{{ route('frontend.user.dashboard') }}" class="logo-link nk-sidebar-logo">
-                        <img class="logo-light logo-img" src="./images/logo.png" srcset="./images/logo2x.png 2x" alt="logo">
-                        <img class="logo-dark logo-img" src="./images/logo-dark.png" srcset="./images/logo-dark2x.png 2x" alt="logo-dark">
-                        <span class="nio-version">General</span>
+                        <img class="logo-light logo-img" src="{{ asset('assets/image/logo.png') }}" srcset="{{ asset('assets/image/logo.png') }} 2x" alt="logo">
+                        <img class="logo-dark logo-img" src="{{ asset('assets/image/logo.png') }}" srcset="{{ asset('assets/image/logo.png') }} 2x" alt="logo-dark">
                     </a>
                 </div>
                 <div class="nk-menu-trigger mr-n2">
@@ -42,15 +38,14 @@
                                 <h6 class="overline-title text-primary-alt">Applications</h6>
                             </li>
                             <li class="nk-menu-item">
-                                <a href="" class="nk-menu-link">
-                                    <span class="nk-menu-icon"><em class="icon ni ni-chat-circle"></em></span>
+                                <a href="{{ route('frontend.user.dashboard') }}" class="nk-menu-link">
+                                    <span class="nk-menu-icon"><em class="icon ni ni-dashboard"></em></span>
                                     <span class="nk-menu-text">Dashboard</span>
-                                    <span class="nk-menu-badge">Soon</span>
                                 </a>
                             </li><!-- .nk-menu-item -->
                             <li class="nk-menu-item has-sub">
                                 <a href="#" class="nk-menu-link nk-menu-toggle">
-                                    <span class="nk-menu-icon"><em class="icon ni ni-users"></em></span>
+                                    <span class="nk-menu-icon"><em class="icon ni ni-truck"></em></span>
                                     <span class="nk-menu-text">Lorry Management</span>
                                 </a>
                                 <ul class="nk-menu-sub">
@@ -78,24 +73,12 @@
                             <a href="#" class="nk-nav-toggle nk-quick-nav-icon" data-target="sidebarMenu"><em class="icon ni ni-menu"></em></a>
                         </div>
                         <div class="nk-header-brand d-xl-none">
-                            <a href="html/crypto/index.html" class="logo-link">
-                                <img class="logo-light logo-img" src="./images/logo.png" srcset="./images/logo2x.png 2x" alt="logo">
-                                <img class="logo-dark logo-img" src="./images/logo-dark.png" srcset="./images/logo-dark2x.png 2x" alt="logo-dark">
-                                <span class="nio-version">General</span>
+                            <a href="#" class="logo-link">
+                                <img class="logo-light logo-img" src="{{ asset('assets/image/logo.png') }}" srcset="{{ asset('assets/image/logo.png') }} 2x" alt="logo">
+                                <img class="logo-dark logo-img" src="{{ asset('assets/image/logo.png') }}" srcset="{{ asset('assets/image/logo.png') }} 2x" alt="logo-dark">
                             </a>
                         </div><!-- .nk-header-brand -->
                         <div class="nk-header-news d-none d-xl-block">
-                            <div class="nk-news-list">
-                                <a class="nk-news-item" href="#">
-                                    <div class="nk-news-icon">
-                                        <em class="icon ni ni-card-view"></em>
-                                    </div>
-                                    <div class="nk-news-text">
-                                        <p>Do you know the latest update of 2019? <span> A overview of our is now available on YouTube</span></p>
-                                        <em class="icon ni ni-external"></em>
-                                    </div>
-                                </a>
-                            </div>
                         </div><!-- .nk-header-news -->
                         <div class="nk-header-tools">
                             <ul class="nk-quick-nav">
@@ -118,21 +101,21 @@
                                                     <span>AB</span>
                                                 </div>
                                                 <div class="user-info">
-                                                    <span class="lead-text">Abu Bin Ishtiyak</span>
-                                                    <span class="sub-text">info@softnio.com</span>
+                                                    <span class="lead-text">{{ auth()->user()->name }}</span>
+                                                    <span class="sub-text">{{ auth()->user()->email }}</span>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="dropdown-inner">
                                             <ul class="link-list">
-                                                <li><a href="html/general/user-profile-regular.html"><em class="icon ni ni-user-alt"></em><span>View Profile</span></a></li>
-                                                <li><a href="html/general/user-profile-setting.html"><em class="icon ni ni-setting-alt"></em><span>Account Setting</span></a></li>
-                                                <li><a href="html/general/user-profile-activity.html"><em class="icon ni ni-activity-alt"></em><span>Login Activity</span></a></li>
+                                                <li><a href="#"><em class="icon ni ni-user-alt"></em><span>View Profile</span></a></li>
+                                                <li><a href="#"><em class="icon ni ni-setting-alt"></em><span>Account Setting</span></a></li>
+                                                <li><a href="#"><em class="icon ni ni-activity-alt"></em><span>Login Activity</span></a></li>
                                             </ul>
                                         </div>
                                         <div class="dropdown-inner">
                                             <ul class="link-list">
-                                                <li><a href="#"><em class="icon ni ni-signout"></em><span>Sign out</span></a></li>
+                                                <li><a href="{{ route('frontend.auth.logout') }}"><em class="icon ni ni-signout"></em><span>Sign out</span></a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -167,15 +150,7 @@
             <div class="nk-footer">
                 <div class="container-fluid">
                     <div class="nk-footer-wrap">
-                        <div class="nk-footer-copyright"> &copy; 2020 Truck Management System. Template by <a href="#">Softnio</a>
-                        </div>
-                        <div class="nk-footer-links">
-                            <ul class="nav nav-sm">
-                                <li class="nav-item"><a class="nav-link" href="#">Terms</a></li>
-                                <li class="nav-item"><a class="nav-link" href="#">Privacy</a></li>
-                                <li class="nav-item"><a class="nav-link" href="#">Help</a></li>
-                            </ul>
-                        </div>
+                        <div class="nk-footer-copyright"> All rights reserved. © 2020 Tang Eng-Le Logistics (M) Sdn. Bhd.</div>
                     </div>
                 </div>
             </div>
@@ -186,7 +161,7 @@
     <!-- main @e -->
 </div>
 <!-- app-root @e -->
-<!-- JavaScript -->
+@stack('before-scripts')
 <script src="{{ asset('assets/js/bundle.js') }}?ver=1.4.0"></script>
 <script src="{{ asset('assets/js/scripts.js') }}?ver=1.4.0"></script>
 <script
