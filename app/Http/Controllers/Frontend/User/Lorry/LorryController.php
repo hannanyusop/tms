@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Lorry;
 use App\Models\LorryInsurance;
 use App\Models\LorryService;
+use App\Models\ServiceItem;
 use Illuminate\Http\Request;
 
 /**
@@ -36,7 +37,8 @@ class LorryController extends Controller
         }else{
 
             $plat_number = session('plat_number', 0);
-            $lorry  = Lorry::where('plat_number', $plat_number)->first();
+
+            $lorry  = Lorry::orderBy('id', 'desc')->first();
 
             if($request->step == 2){
 
@@ -81,7 +83,7 @@ class LorryController extends Controller
                         ->withErrors('Please complete last service information first!');
                 }
 
-                $lorry->is_complete = 1;
+                $lorry->is_completed = 1;
                 $lorry->save();
 
                 return view('frontend.user.lorry.create', compact('lorry'));
@@ -89,7 +91,6 @@ class LorryController extends Controller
             }else{
 
                 return redirect()->route('frontend.user.lorry.create', ['step' => 1])->withErrors('Invalid parameter!');
-
             }
         }
     }
@@ -128,7 +129,7 @@ class LorryController extends Controller
         }else{
 
             $plat_number = session('plat_number', 0);
-            $lorry  = Lorry::where('plat_number', $plat_number)->first();
+            $lorry  = Lorry::orderBy('id', 'desc')->first();
 
             if(!$lorry){
                 return redirect()->route('frontend.user.lorry.create', ['step' => 1])
@@ -214,7 +215,7 @@ class LorryController extends Controller
                     'amount' => 'required|numeric',
                     'payment_method' => 'required|in:1,2',
                     'payment_reference' => '',
-                    'payment_documents' => 'file:3000',
+                    'payment_documents' => 'nullable|file:3000',
                     'remark' => 'max:200',
                 ]);
 
@@ -234,6 +235,13 @@ class LorryController extends Controller
                 $service->payment_reference = $request->payment_reference;
                 $service->remark = $request->remark;
                 $service->save();
+
+                $item = new ServiceItem();
+                $item->lorry_service_id = $service->id;
+                $item->name = "Service";
+                $item->qty = 1;
+                $item->total_price = $request->amount;
+                $item->save();
 
                 return redirect()->route('frontend.user.lorry.create', ['step' => 5])
                     ->withFlashSuccess('Lorry Service information saved!');

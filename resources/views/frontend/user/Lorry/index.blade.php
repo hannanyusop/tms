@@ -3,49 +3,54 @@
 @section('title', __('Lorry'))
 
 @section('content')
-    <div class="card">
-        <div class="card-header"><div class="row">
-                <div class="col-sm-6">
-                </div>
-                <div class="col-sm-6">
-                    <div class="pull-right d-flex buttons-right">
-                        <div class="right-header">
-                            <a href="{{ route('frontend.user.lorry.create', ['step' => 1]) }}" class="btn btn-info">Add Lorry</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-        </div>
-        <div class="card-body">
-            <div class="order-history table-responsive">
-                <table class="table table-bordernone display" id="basic-1">
-                    <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">{{ __('Image') }}</th>
-                        <th scope="col">{{ __('Plate Number') }}</th>
-                        <th scope="col">{{ __('Model') }}</th>
-                        <th scope="col">{{ __('Class') }}</th>
-                        <th scope="col"><i class="fa fa-angle-down"></i></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @foreach($lorries as $key => $lorry)
-                        <tr>
-                            <td>{{ $key+1 }}</td>
-                            <td><img class="img-fluid img-60" src="{{ asset('assets/images/product/1.png') }}"></td>
-                            <td>{{ $lorry->plat_number }}</td>
-                            <td>{{ $lorry->brand."-".$lorry->model }}</td>
-                            <td>{{ $lorry->class }}</td>
-                            <td>
-                                <a href="{{ route('frontend.user.lorry.view', $lorry->id) }}" class="btn btn-info">View</a>
-                            </td>
-                        </tr>
-                    @endforeach
-                    </tbody>
-                </table>
-            </div>
-        </div>
+    <div class="nk-block nk-block-lg">
+        <div class="card card-bordered card-preview">
+            <table class="table table-orders">
+                <thead class="tb-odr-head">
+                <tr class="tb-odr-item">
+                    <th class="tb-odr-info">
+                        <span class="tb-odr-id">Plat Number</span>
+                        <span class="tb-odr-date d-none d-md-inline-block">Model</span>
+                    </th>
+                    <th class="tb-odr-amount">
+                        <span class="tb-odr-total">Class</span>
+                        <span class="tb-odr-status d-none d-md-inline-block">Status</span>
+                    </th>
+                    <th class="tb-odr-action">&nbsp;</th>
+                </tr>
+                </thead>
+                <tbody class="tb-odr-body">
+                @foreach($lorries as $key => $lorry)
+                    <tr class="tb-odr-item">
+                    <td class="tb-odr-info text-uppercase">
+                        <span class="tb-odr-id"><a href="#">{{ $lorry->plat_number }}</a></span>
+                        <span class="tb-odr-date">{{ $lorry->brand."-".$lorry->model }}</span>
+                    </td>
+                    <td class="tb-odr-amount">
+                        <span class="tb-odr-total">
+                            <span class="amount">{{ $lorry->class }}</span>
+                        </span>
+                        <span class="tb-odr-status">
+                            <span class="badge badge-dot badge-warning">Pending</span>
+                        </span>
+                    </td>
+                    <td class="tb-odr-action">
+                        <div class="dropdown">
+                            <a class="text-soft dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown" data-offset="-8,0"><em class="icon ni ni-more-h"></em></a>
+                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-xs">
+                                <ul class="link-list-plain">
+                                    <li><a href="{{ route('frontend.user.lorry.view', $lorry->id) }}" class="text-primary">View</a></li>
+                                    <li><a href="{{ route('frontend.user.lorry.view', $lorry->id) }}" class="text-primary">Edit</a></li>
+                                    <li><a href="#" class="text-danger">Remove</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                @endforeach
+                </tbody>
+            </table>
+        </div><!-- .card-preview -->
     </div>
 @endsection

@@ -18,7 +18,7 @@ class Lorry extends Model{
             ->orderBy('id', 'DESC')->get();
     }
 
-    public function latestServices(){
+    public function latestService(){
         return $this->hasOne(LorryService::class, 'lorry_id', 'id')
             ->orderBy('id', 'DESC');
     }

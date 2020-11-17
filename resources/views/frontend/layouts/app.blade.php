@@ -1,190 +1,194 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zxx" class="js">
 
-<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="keywords" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="{{ asset('assets/images/favicon.png') }}" type="image/x-icon">
-    <link rel="shortcut icon" href="{{ asset('assets/images/favicon.png') }}" type="image/x-icon">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title') | {{ appName() }}</title>
+    <base href="../../">
+    <meta charset="utf-8">
+    <meta name="author" content="Softnio">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="@@page-discription">
+    <!-- Fav Icon  -->
+    <link rel="shortcut icon" href="./images/favicon.png">
+    <!-- Page Title  -->
+    <title>Blank - Layout | DashLite Admin Template</title>
+    <!-- StyleSheets  -->
+    <link rel="stylesheet" href="{{ asset('assets/css/dashlite.css') }}?ver=1.4.0">
+    <link id="skin-default" rel="stylesheet" href="{{ asset('assets/css/theme.css') }}?ver=1.4.0">
+</head>
 
-    <!-- Google font-->
-    <link href="https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,500,600,700,800,900" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-    <!-- Font Awesome-->
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/fontawesome.css') }}">
-    <!-- ico-font-->
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/icofont.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/themify.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/flag-icon.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/feather-icon.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/bootstrap.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/datatables.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/date-picker.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/sweetalert2.css') }}">
-
-    {{--    <link rel="stylesheet" type="text/css" id="color" href="{{ asset('assets/css/light-1.css') }}" media="screen">--}}
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/responsive.css') }}">  </head>
-<body main-theme-layout="main-theme-layout-1">
-    <div class="loader-wrapper">
-      <div class="loader bg-white">
-        <div class="whirly-loader"> </div>
-      </div>
-    </div>
-    <div class="page-wrapper">
-        <!-- Page Header Start-->
-        <div class="page-main-header">
-            <div class="main-header-right row">
-                <div class="main-header-left d-lg-none">
-                    <div class="logo-wrapper"><a href="#"><img src="{{ asset('assets/images/endless-logo.png') }}" alt=""></a></div>
+<body class="nk-body bg-lighter npc-general has-sidebar ">
+<div class="nk-app-root">
+    <!-- main @s -->
+    <div class="nk-main ">
+        <!-- sidebar @s -->
+        <div class="nk-sidebar nk-sidebar-fixed is-light " data-content="sidebarMenu">
+            <div class="nk-sidebar-element nk-sidebar-head">
+                <div class="nk-sidebar-brand">
+                    <a href="{{ route('frontend.user.dashboard') }}" class="logo-link nk-sidebar-logo">
+                        <img class="logo-light logo-img" src="./images/logo.png" srcset="./images/logo2x.png 2x" alt="logo">
+                        <img class="logo-dark logo-img" src="./images/logo-dark.png" srcset="./images/logo-dark2x.png 2x" alt="logo-dark">
+                        <span class="nio-version">General</span>
+                    </a>
                 </div>
-                <div class="mobile-sidebar">
-                    <div class="media-body text-right switch-sm">
-                        <label class="switch"><a href="#"><i id="sidebar-toggle" data-feather="align-left"></i></a></label>
-                    </div>
+                <div class="nk-menu-trigger mr-n2">
+                    <a href="#" class="nk-nav-toggle nk-quick-nav-icon d-xl-none" data-target="sidebarMenu"><em class="icon ni ni-arrow-left"></em></a>
                 </div>
-                <div class="nav-right col p-0">
-                    <ul class="nav-menus">
-                        <li></li>
-                        <li><a class="text-dark" href="#!" onclick="javascript:toggleFullScreen()"><i data-feather="maximize"></i></a></li>
-                        <li class="onhover-dropdown"><i data-feather="bell"></i>
-                            <ul class="notification-dropdown onhover-show-div">
-                                <li>Notification <span class="badge badge-pill badge-primary pull-right">0</span></li>
-                                <li class="bg-light txt-dark"><a href="#">All</a> notification</li>
-                            </ul>
-                        </li>
-                        <li class="onhover-dropdown">
-                            <div class="media align-items-center"><img class="align-self-center pull-right img-50 rounded-circle" src="{{ asset('img/avatar.png') }}" alt="header-user">
-                                <div class="dotted-animation"></div>
-                            </div>
-                            <ul class="profile-dropdown onhover-show-div p-20">
-                                <li><a href="#"><i data-feather="user"></i>Edit Profile</a></li>
-                                <li><a href="#"><i data-feather="settings"></i>Settings</a></li>
-                                <li><a href="#"><i data-feather="lock"></i>Lock Screen</a></li>
-                                <li><a href="{{ route('frontend.auth.logout') }}"><i data-feather="log-out"></i>Logout</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <div class="d-lg-none mobile-toggle pull-right"><i data-feather="more-horizontal"></i></div>
-                </div>
-            </div>
+            </div><!-- .nk-sidebar-element -->
+            <div class="nk-sidebar-element">
+                <div class="nk-sidebar-content">
+                    <div class="nk-sidebar-menu" data-simplebar>
+                        <ul class="nk-menu">
+                            <li class="nk-menu-heading">
+                                <h6 class="overline-title text-primary-alt">Applications</h6>
+                            </li>
+                            <li class="nk-menu-item">
+                                <a href="" class="nk-menu-link">
+                                    <span class="nk-menu-icon"><em class="icon ni ni-chat-circle"></em></span>
+                                    <span class="nk-menu-text">Dashboard</span>
+                                    <span class="nk-menu-badge">Soon</span>
+                                </a>
+                            </li><!-- .nk-menu-item -->
+                            <li class="nk-menu-item has-sub">
+                                <a href="#" class="nk-menu-link nk-menu-toggle">
+                                    <span class="nk-menu-icon"><em class="icon ni ni-users"></em></span>
+                                    <span class="nk-menu-text">Lorry Management</span>
+                                </a>
+                                <ul class="nk-menu-sub">
+                                    <li class="nk-menu-item">
+                                        <a href="{{ route('frontend.user.lorry.index') }}" class="nk-menu-link"><span class="nk-menu-text">List</span></a>
+                                    </li>
+                                    <li class="nk-menu-item">
+                                        <a href="{{ route('frontend.user.lorry.create') }}" class="nk-menu-link"><span class="nk-menu-text">Register Lorry</span></a>
+                                    </li>
+                                </ul><!-- .nk-menu-sub -->
+                            </li><!-- .nk-menu-item -->
+                        </ul><!-- .nk-menu -->
+                    </div><!-- .nk-sidebar-menu -->
+                </div><!-- .nk-sidebar-content -->
+            </div><!-- .nk-sidebar-element -->
         </div>
-        <div class="page-body-wrapper">
-            <!-- Page Sidebar Start-->
-            <div class="page-sidebar">
-                <div class="main-header-left d-none d-lg-block">
-                    <div class="logo-wrapper">
-                        <img src="{{ asset('assets/images/endless-logo.png') }}" alt="">
+        <!-- sidebar @e -->
+        <!-- wrap @s -->
+        <div class="nk-wrap ">
+            <!-- main header @s -->
+            <div class="nk-header nk-header-fixed is-light">
+                <div class="container-fluid">
+                    <div class="nk-header-wrap">
+                        <div class="nk-menu-trigger d-xl-none ml-n1">
+                            <a href="#" class="nk-nav-toggle nk-quick-nav-icon" data-target="sidebarMenu"><em class="icon ni ni-menu"></em></a>
+                        </div>
+                        <div class="nk-header-brand d-xl-none">
+                            <a href="html/crypto/index.html" class="logo-link">
+                                <img class="logo-light logo-img" src="./images/logo.png" srcset="./images/logo2x.png 2x" alt="logo">
+                                <img class="logo-dark logo-img" src="./images/logo-dark.png" srcset="./images/logo-dark2x.png 2x" alt="logo-dark">
+                                <span class="nio-version">General</span>
+                            </a>
+                        </div><!-- .nk-header-brand -->
+                        <div class="nk-header-news d-none d-xl-block">
+                            <div class="nk-news-list">
+                                <a class="nk-news-item" href="#">
+                                    <div class="nk-news-icon">
+                                        <em class="icon ni ni-card-view"></em>
+                                    </div>
+                                    <div class="nk-news-text">
+                                        <p>Do you know the latest update of 2019? <span> A overview of our is now available on YouTube</span></p>
+                                        <em class="icon ni ni-external"></em>
+                                    </div>
+                                </a>
+                            </div>
+                        </div><!-- .nk-header-news -->
+                        <div class="nk-header-tools">
+                            <ul class="nk-quick-nav">
+                                <li class="dropdown user-dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                        <div class="user-toggle">
+                                            <div class="user-avatar sm">
+                                                <em class="icon ni ni-user-alt"></em>
+                                            </div>
+                                            <div class="user-info d-none d-md-block">
+                                                <div class="user-status">{{ auth()->user()->email }}</div>
+                                                <div class="user-name dropdown-indicator">{{ auth()->user()->name }}</div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-md dropdown-menu-right dropdown-menu-s1">
+                                        <div class="dropdown-inner user-card-wrap bg-lighter d-none d-md-block">
+                                            <div class="user-card">
+                                                <div class="user-avatar">
+                                                    <span>AB</span>
+                                                </div>
+                                                <div class="user-info">
+                                                    <span class="lead-text">Abu Bin Ishtiyak</span>
+                                                    <span class="sub-text">info@softnio.com</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="dropdown-inner">
+                                            <ul class="link-list">
+                                                <li><a href="html/general/user-profile-regular.html"><em class="icon ni ni-user-alt"></em><span>View Profile</span></a></li>
+                                                <li><a href="html/general/user-profile-setting.html"><em class="icon ni ni-setting-alt"></em><span>Account Setting</span></a></li>
+                                                <li><a href="html/general/user-profile-activity.html"><em class="icon ni ni-activity-alt"></em><span>Login Activity</span></a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="dropdown-inner">
+                                            <ul class="link-list">
+                                                <li><a href="#"><em class="icon ni ni-signout"></em><span>Sign out</span></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </li><!-- .dropdown -->
+                            </ul><!-- .nk-quick-nav -->
+                        </div><!-- .nk-header-tools -->
+                    </div><!-- .nk-header-wrap -->
+                </div><!-- .container-fliud -->
+            </div>
+            <!-- main header @e -->
+            <!-- content @s -->
+            <div class="nk-content ">
+                <div class="container-fluid">
+                    <div class="nk-content-inner">
+                        <div class="nk-content-body">
+                            <div class="nk-block-head nk-block-head-sm">
+                                <div class="nk-block-between">
+                                    <div class="nk-block-head-content">
+                                        <h3 class="nk-block-title page-title">@yield('title')</h3>
+
+                                    </div><!-- .nk-block-head-content -->
+                                </div><!-- .nk-block-between -->
+                            </div><!-- .nk-block-head -->
+                            @include('includes.partials.messages')
+                            @yield('content')
+                        </div>
                     </div>
                 </div>
-                <div class="sidebar custom-scrollbar">
-                    <div class="sidebar-user text-center">
-                        <div><img class="img-60 rounded-circle" src="{{ asset('assets/images/user/1.jpg') }}" alt="#">
-                            <div class="profile-edit"><a href="#" target="_blank"><i data-feather="edit"></i></a></div>
+            </div>
+            <!-- content @e -->
+            <!-- footer @s -->
+            <div class="nk-footer">
+                <div class="container-fluid">
+                    <div class="nk-footer-wrap">
+                        <div class="nk-footer-copyright"> &copy; 2020 Truck Management System. Template by <a href="#">Softnio</a>
                         </div>
-                        <h6 class="mt-3 f-14">{{ auth()->user()->name }}</h6>
-                    </div>
-                    <ul class="sidebar-menu">
-
-                        <li><a class="sidebar-header" href="{{ route('frontend.user.dashboard') }}"><i data-feather="home"></i><span> {{ __('Dashboard') }}</span></a></li>
-                        <li><a class="sidebar-header" href="{{ route('frontend.user.lorry.index') }}"><i data-feather="truck"></i><span> {{ __('Lorry') }}</span></a></li>
-                        <li class="">
-                            <a class="sidebar-header" href="#"><i data-feather="settings"></i><span>{{ __('System Setup') }}</span><i class="fa fa-angle-right pull-right"></i></a>
-                            <ul class="sidebar-submenu">
-                                <li><a href="#" class=""><i class="fa fa-circle"></i>Notification</a></li>
+                        <div class="nk-footer-links">
+                            <ul class="nav nav-sm">
+                                <li class="nav-item"><a class="nav-link" href="#">Terms</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#">Privacy</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#">Help</a></li>
                             </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <!-- Page Sidebar Ends-->
-
-            <div class="page-body">
-                <!-- breadcrumb  Start -->
-                <div class="container-fluid">
-                    <div class="page-header">
-                        <div class="row">
-                            <div class="col">
-                                <div class="page-header-left">
-                                    <h3>@yield('title')</h3>
-
-                                </div>
-                            </div>
-                            <!-- Bookmark Start-->
-                            <div class="col">
-                                <div class="bookmark pull-right">
-                                    <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="{{ route('frontend.user.dashboard') }}"><i data-feather="home"></i></a></li>
-                                        @if(isset($links))
-                                            @foreach($links as $url => $link)
-                                                <li class="breadcrumb-item {{ ($link != ' ')? "active" : "" }}"><a href="{{ $link }}">{{ $url }}</a></li>
-                                            @endforeach
-                                        @endif
-                                        <li class="breadcrumb-item active">@yield('title')</li>
-                                    </ol>
-                                </div>
-                            </div>
-                            <!-- Bookmark Ends-->
                         </div>
                     </div>
                 </div>
-                <!-- End Breadcrumb -->
-                <!-- Container-fluid starts-->
-                <div class="container-fluid">
-                    @include('includes.partials.messages')
-                    @yield('content')
-                </div>
-                <!-- Container-fluid Ends-->
             </div>
-            <!-- footer start-->
-            <footer class="footer">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-6 footer-copyright">
-                            <p class="mb-0">Copyright 2019 © All rights reserved.</p>
-                        </div>
-                    </div>
-                </div>
-            </footer>
+            <!-- footer @e -->
         </div>
+        <!-- wrap @e -->
     </div>
-</body>
-@stack('before-scripts')
-<script src="{{ asset('assets/js/jquery-3.2.1.min.js') }}"></script>
-<script src="{{ asset('js/app.js') }}"></script>
-<script src="{{ asset('assets/js/bootstrap/popper.min.js') }}"></script>
-<script src="{{ asset('assets/js/bootstrap/bootstrap.js') }}"></script>
-<script src="{{ asset('assets/js/icons/feather-icon/feather.min.js') }}"></script>
-<script src="{{ asset('assets/js/icons/feather-icon/feather-icon.js') }}"></script>
-<script src="{{ asset('assets/js/sidebar-menu.js') }}"></script>
-<script src="{{ asset('assets/js/config.js') }}"></script>
-
-<script src="{{ asset('assets/js/chat-menu.js') }}"></script>
-<script src="{{ asset('assets/js/tooltip-init.js') }}"></script>
-
-<script src="{{ asset('assets/js/datepicker/date-picker/datepicker.js') }}"></script>
-<script src="{{ asset('assets/js/datepicker/date-picker/datepicker.en.js') }}"></script>
-<script src="{{ asset('assets/js/sweet-alert/sweetalert.min.js') }}"></script>
-
-<script src="{{ asset('assets/js/counter/jquery.waypoints.min.js') }}"></script>
-<script src="{{ asset('assets/js/counter/jquery.counterup.min.js') }}"></script>
-
-
-<script src="{{ asset('assets/js/datatable/datatables/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('assets/js/datatable/datatables/datatable.custom.js') }}"></script>
-
-<script src="{{ asset('assets/js/script.js') }}"></script>
-{{--<script src="{{ asset('assets/js/theme-customizer/customizer.js') }}"></script>--}}
-
+    <!-- main @e -->
+</div>
+<!-- app-root @e -->
+<!-- JavaScript -->
+<script src="{{ asset('assets/js/bundle.js') }}?ver=1.4.0"></script>
+<script src="{{ asset('assets/js/scripts.js') }}?ver=1.4.0"></script>
 <script type="text/javascript">
     "use strict";
     (function($) {
@@ -254,6 +258,6 @@
 
 </script>
 @stack('after-scripts')
-
+</body>
 
 </html>

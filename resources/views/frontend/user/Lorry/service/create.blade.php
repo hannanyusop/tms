@@ -11,153 +11,183 @@
 @endphp
 
 @section('content')
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-body">
-                    <x-forms.post :action="route('frontend.user.lorry.service.insert', $lorry->id)">
-                        <div class="">
-
-                            <div class="alert alert-light dark" role="alert">
-                                <p>Field with  <i class="text-danger">*</i> symbol are required</p>
+    <div class="nk-block nk-block-lg">
+        <div class="card card-bordered">
+            <div class="card-inner">
+                <x-forms.post :action="route('frontend.user.lorry.service.insert', $lorry->id)" class="gy-3">
+                    <div class="row g-3 align-center">
+                        <div class="col-lg-5">
+                            <div class="form-group">
+                                <label class="form-label" for="site-plat_number">{{ __('Plat Number') }}</label>
+                                <span class="form-note">Specify the name of your website.</span>
                             </div>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label">{{ __('Plat Number') }}</label>
-                                        <div class="col-sm-5">
-                                            <input class="form-control text-uppercase" type="text" name="plat_number" value="{{ $lorry->plat_number }}" readonly>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <hr><h5>Service Information</h5>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label" for="next_service">{{ __('Next Service') }}<i class="text-danger">*</i></label>
-                                        <div class="col-sm-3">
-                                            <input class="datepicker-here form-control digits" type="text" data-language="en" aria-describedby="basic-addon2" name="next_service" id="next_service" value="{{ old('next_service')? old('next_service') : date('m/d/Y')   }}" required>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label" for="mileage">{{ __('Current Mileage') }}<i class="text-danger">*</i></label>
-                                        <div class="col-sm-3">
-                                            <input class="form-control digits" type="number" name="mileage" id="mileage" value="{{ old('mileage')? old('mileage') : 0  }}" required>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label" for="mileage_next_service">{{ __('Next Service Mileage') }}<i class="text-danger">*</i></label>
-                                        <div class="col-sm-3">
-                                            <input class="form-control digits" type="number" name="mileage_next_service" id="mileage_next_service" value="{{ old('mileage_next_service')? old('mileage_next_service') : 0  }}" required>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label" for="payment_method">{{ __('Payment Method') }}<i class="text-danger">*</i></label>
-                                        <div class="col-sm-3">
-                                            <select name="payment_method" id="payment_method" class="form-control" required>
-                                                @foreach(paymentMethod() as $key => $method)
-                                                    <option value="{{ $key }}" {{ (old('payment_method') == $key)? "selected" : "" }}>{{ $method }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label" for="payment_reference">{{ __('Receipt Number(Ref. Number)') }}<i class="text-danger">*</i></label>
-                                        <div class="col-sm-5">
-                                            <input class="form-control" type="text" name="payment_reference" id="payment_reference" value="{{ old('payment_reference') }}">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label" for="payment_documents">{{ __('Receipt Upload') }}</label>
-                                        <div class="col-sm-5">
-                                            <input class="form-control" type="file" name="payment_documents" id="payment_documents" value="{{ old('payment_documents') }}">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col">
-                                    <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label" for="class">{{ __('Remark') }}</label>
-                                        <div class="col-sm-5">
-                                            <textarea name="remark" id="remark" class="form-control" rows="5">{{ old('remark') }}</textarea>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <hr><h5>Items</h5>
-                            <div class="">
-                                <div id="table" class="table-editable">
-                                    <button type="button" class="table-add btn btn-success mb-2 float-right"><i class="fa fa-plus"></i> Add Items</button>
-                                    <table class="table">
-                                        <tr>
-                                            <th>Item</th>
-                                            <th>Remark</th>
-                                            <th>Quantity</th>
-                                            <th>Price</th>
-                                            <th>Total Price</th>
-                                            <th data-attr-ignore>Remove</th>
-                                        </tr>
-
-                                        @if(old('name'))
-                                            @foreach(old('name') as $key => $name)
-                                                <tr class="{{ ($key == 0 )? "hide" : "" }}">
-                                                    <td><input type="text" class="form-control" value="{{ old('name')[$key] }}" name="name[]" required></td>
-                                                    <td><textarea class="form-control"  name="description[]">{{ old('description')[$key]}}</textarea> </td>
-                                                    <td><input type="number" class="form-control" name="qty[]" value="{{ old('qty')[$key] }}" required></td>
-                                                    <td><input type="number" step="1" class="form-control" value="{{ old('price')[$key] }}" name="price[]"></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td>
-                                                        <i class="table-remove fa fa-times text-danger"></i>
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        @else
-                                            <tr class="hide">
-                                                <td><input type="text" class="form-control" name="name[]" required></td>
-                                                <td><textarea class="form-control" name="description[]"></textarea> </td>
-                                                <td><input type="number" class="form-control" name="qty[]" value="1" required></td>
-                                                <td><input type="number" step="1" class="form-control" value="0.00" name="price[]"></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td>
-                                                    <i class="table-remove fa fa-times text-danger"></i>
-                                                </td>
-                                            </tr>
-                                        @endif
-                                    </table>
+                        </div>
+                        <div class="col-lg-7">
+                            <div class="form-group">
+                                <div class="form-control-wrap">
+                                    <input class="form-control text-uppercase" type="text" name="plat_number" value="{{ $lorry->plat_number }}" readonly>
                                 </div>
                             </div>
                         </div>
-                        <button class="btn btn-primary nextBtn pull-right mt-5" type="submit">Submit</button>
+                    </div>
+                    <hr><h5>Service Information</h5>
+                    <div class="row g-3 align-center">
+                        <div class="col-lg-5">
+                            <div class="form-group">
+                                <label class="form-label" for="next_service">{{ __('Next Service') }}<i class="text-danger">*</i></label>
+                                <span class="form-note">Specify the name of your website.</span>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <div class="form-control-wrap">
+                                    <input class="form-control date-picker" data-date-format="yyyy-mm-dd" type="text" data-language="en" aria-describedby="basic-addon2" name="next_service" id="next_service" value="{{ old('next_service')? old('next_service') : date('m/d/Y')   }}" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-                    </x-forms.post>
-                </div>
+                    <div class="row g-3 align-center">
+                        <div class="col-lg-5">
+                            <div class="form-group">
+                                <label class="form-label" for="mileage">{{ __('Current Mileage') }}<i class="text-danger">*</i></label>
+                                <span class="form-note">Specify the name of your website.</span>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <div class="form-control-wrap">
+                                    <input class="form-control digits" type="number" name="mileage" id="mileage" value="{{ old('mileage')? old('mileage') : 0  }}" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row g-3 align-center">
+                        <div class="col-lg-5">
+                            <div class="form-group">
+                                <label class="form-label" for="mileage_next_service">{{ __('Next Service Mileage') }}<i class="text-danger">*</i></label>
+                                <span class="form-note">Specify the name of your website.</span>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <div class="form-control-wrap">
+                                    <input class="form-control digits" type="number" name="mileage_next_service" id="mileage_next_service" value="{{ old('mileage_next_service')? old('mileage_next_service') : 0  }}" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row g-3 align-center">
+                        <div class="col-lg-5">
+                            <div class="form-group">
+                                <label class="form-label" for="payment_method">{{ __('Payment Method') }}<i class="text-danger">*</i></label>
+                                <span class="form-note">Specify the name of your website.</span>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <div class="form-control-wrap">
+                                    <select name="payment_method" id="payment_method" class="form-select form-control form-control-lg" required>
+                                        @foreach(paymentMethod() as $key => $method)
+                                            <option value="{{ $key }}" {{ (old('payment_method') == $key)? "selected" : "" }}>{{ $method }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row g-3 align-center">
+                        <div class="col-lg-5">
+                            <div class="form-group">
+                                <label class="form-label" for="payment_reference">{{ __('Receipt Number(Ref. Number)') }}<i class="text-danger">*</i></label>
+                                <span class="form-note">Specify the name of your website.</span>
+                            </div>
+                        </div>
+                        <div class="col-lg-7">
+                            <div class="form-group">
+                                <div class="form-control-wrap">
+                                    <input class="form-control" type="text" name="payment_reference" id="payment_reference" value="{{ old('payment_reference') }}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row g-3 align-center">
+                        <div class="col-lg-5">
+                            <div class="form-group">
+                                <label class="form-label" for="site-name">{{ __('Receipt Upload') }}</label>
+                                <span class="form-note">Specify the name of your website.</span>
+                            </div>
+                        </div>
+                        <div class="col-lg-7">
+                            <div class="form-group">
+                                <div class="form-control-wrap">
+                                    <input class="form-control" type="file" name="payment_documents" id="payment_documents" value="{{ old('payment_documents') }}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row g-3 align-center">
+                        <div class="col-lg-5">
+                            <div class="form-group">
+                                <label class="form-label" for="remark">{{ __('Remark') }}</label>
+                                <span class="form-note">Specify the name of your website.</span>
+                            </div>
+                        </div>
+                        <div class="col-lg-7">
+                            <div class="form-group">
+                                <div class="form-control-wrap">
+                                    <textarea name="remark" id="remark" class="form-control" rows="5">{{ old('remark') }}</textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr><h5>Items</h5>
+                    <div class="">
+                        <div id="table" class="table-editable">
+                            <button type="button" class="table-add btn btn-success mb-2 float-right"><em class="icon ni ni-plus-medi"></em> Add Items</button>
+                            <table class="table">
+                                <tr>
+                                    <th>Item</th>
+                                    <th>Remark</th>
+                                    <th>Quantity</th>
+                                    <th>Price</th>
+                                    <th data-attr-ignore>Remove</th>
+                                </tr>
+
+                                @if(old('name'))
+                                    @foreach(old('name') as $key => $name)
+                                        <tr class="{{ ($key == 0 )? "hide" : "" }}">
+                                            <td><input type="text" class="form-control" value="{{ old('name')[$key] }}" name="name[]" required></td>
+                                            <td><textarea class="form-control"  name="description[]">{{ old('description')[$key]}}</textarea> </td>
+                                            <td><input type="number" class="form-control" name="qty[]" value="{{ old('qty')[$key] }}" required></td>
+                                            <td><input type="number" step="1" class="form-control" value="{{ old('price')[$key] }}" name="price[]"></td>
+                                            <td class="text-center">
+                                                <em class="table-remove icon ni ni-cross text-danger font-weight-bold"></em>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @else
+                                    <tr class="hide">
+                                        <td><input type="text" class="form-control" name="name[]" required></td>
+                                        <td><textarea class="form-control" name="description[]"></textarea> </td>
+                                        <td><input type="number" class="form-control" name="qty[]" value="1" required></td>
+                                        <td><input type="number" step="1" class="form-control" value="0.00" name="price[]"></td>
+                                        <td class="text-center">
+                                            <em class="table-remove icon ni ni-cross text-danger font-weight-bold"></em>
+                                        </td>
+                                    </tr>
+                                @endif
+                            </table>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary nextBtn pull-right mt-5" type="submit">Submit</button>
+
+                </x-forms.post>
             </div>
-        </div>
+        </div><!-- card -->
     </div>
 @endsection
 @push('after-scripts')
