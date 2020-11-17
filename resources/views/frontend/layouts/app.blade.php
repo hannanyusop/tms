@@ -189,7 +189,13 @@
 <!-- JavaScript -->
 <script src="{{ asset('assets/js/bundle.js') }}?ver=1.4.0"></script>
 <script src="{{ asset('assets/js/scripts.js') }}?ver=1.4.0"></script>
+<script
+    src="https://code.jquery.com/jquery-3.5.1.min.js"
+    integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+    crossorigin="anonymous"></script>
+
 <script type="text/javascript">
+
     "use strict";
     (function($) {
         "use strict";
@@ -212,48 +218,73 @@
                         disabled: isDisabled
                     }
                 }
-            }
+            }).then(function(e) {
+                e.dismiss === Swal.DismissReason.timer && console.log("I was closed by the timer")
+            }), e.preventDefault()
+        }), e(".eg-swal-av6").on("click", function(e) {
+            Swal.fire({
+                title: "Submit your Github username",
+                input: "text",
+                inputAttributes: {
+                    autocapitalize: "off"
+                },
+                showCancelButton: !0,
+                confirmButtonText: "Look up",
+                showLoaderOnConfirm: !0,
+                preConfirm: function(e) {
+                    return fetch("//api.github.com/users/".concat(e)).then(function(e) {
+                        if (!e.ok) throw new Error(e.statusText);
+                        return e.json()
+                    }).catch(function(e) {
+                        Swal.showValidationMessage("Request failed: ".concat(e))
+                    })
+                },
+                allowOutsideClick: function() {
+                    return !Swal.isLoading()
+                }
+            }).then(function(e) {
+                e.value && Swal.fire({
+                    title: "".concat(e.value.login, "'s avatar"),
+                    imageUrl: e.value.avatar_url,
+                    imageWidth: "120px"
+                })
+            }), e.preventDefault()
         })
-    })(jQuery);
+    }((NioApp, jQuery));
+
 
     $(".delete").click(function (){
 
         let data_url = $(this).data('url');
-        let  message = $(this).data('message')
-        swal({
+        let  message = $(this).data('message');
+
+        swal.fire({
             // title: "Are you sure?",
             text: message,
             icon: "warning",
             buttons: true,
             dangerMode: true,
-        }).then((willDelete) => {
-            if (willDelete) {
+            showCancelButton: 0,
+        }).then((e) => {
+            if (e) {
                 $.ajax({
                     type: 'GET',
                     url: data_url,
                     success: function (results) {
 
                         if (results.success === true) {
-                            swal("Done!", results.message, "success");
+                            swal.fire("Done!", results.message, "success");
                             location.reload();
                         } else {
-                            swal("Error!", results.message, "error");
+                            swal.fire("Error!", results.message, "error");
                         }
                     }
                 });
             } else {
-                // swal("Your imaginary file is safe!");
+                swal.fire("Your imaginary file is safe!");
             }
-        })
+        }),e.preventDefault()
     });
-
-    (function($) {
-        "use strict";
-        $('.counter').counterUp({
-            delay: 8,
-            time: 1000
-        });
-    })(jQuery);
 
 
 </script>

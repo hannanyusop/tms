@@ -20,32 +20,30 @@
                                         <div class="nk-iv-wg3-subtitle">Available Balance</div>
                                     </div>
                                     <div class="nk-iv-wg3-sub">
-                                        <span class="nk-iv-wg3-plus text-soft"><em class="icon ni ni-plus"></em></span>
                                         <div class="nk-iv-wg3-amount">
-                                            <div class="number-sm">1,500.05</div>
+                                            <div class="number-sm">{{ $lorry->btm }}</div>
                                         </div>
-                                        <div class="nk-iv-wg3-subtitle">Locked Balance <em class="icon ni ni-info-fill" data-toggle="tooltip" data-placement="right" title="" data-original-title="You can't use"></em></div>
+                                        <div class="nk-iv-wg3-subtitle">BTM <em class="icon ni ni-info-fill" data-toggle="tooltip" data-placement="right" title="" data-original-title="Berat Tanpa Muatan"></em></div>
                                     </div>
                                 </div>
                             </div>
                         </div><!-- .col -->
                         <div class="col-lg-7">
                             <div class="nk-iv-wg3">
-                                <div class="nk-iv-wg3-title">This Month <em class="icon ni ni-info-fill" data-toggle="tooltip" data-placement="right" title="" data-original-title="Current Month Profit"></em></div>
+                                <div class="nk-iv-wg3-title"> <em class="icon ni ni-info-fill" data-toggle="tooltip" data-placement="right" title="" data-original-title="Current Month Profit"></em></div>
                                 <div class="nk-iv-wg3-group flex-md-nowrap g-4">
                                     <div class="nk-iv-wg3-sub-group gx-4">
                                         <div class="nk-iv-wg3-sub">
                                             <div class="nk-iv-wg3-amount">
-                                                <div class="number">5,394.62</div>
+                                                <div class="number text-uppercase">{{ $lorry->no_engine }}</div>
                                             </div>
-                                            <div class="nk-iv-wg3-subtitle">Total Profit</div>
+                                            <div class="nk-iv-wg3-subtitle">Engine Number</div>
                                         </div>
                                         <div class="nk-iv-wg3-sub">
-                                            <span class="nk-iv-wg3-plus text-soft"><em class="icon ni ni-plus"></em></span>
                                             <div class="nk-iv-wg3-amount">
-                                                <div class="number-sm">1,50.05</div>
+                                                <div class="number-sm">{{ $lorry->no_chassis }}</div>
                                             </div>
-                                            <div class="nk-iv-wg3-subtitle">Today Profit</div>
+                                            <div class="nk-iv-wg3-subtitle">Chassis Number</div>
                                         </div>
                                     </div>
                                     <div class="nk-iv-wg3-sub flex-grow-1 ml-md-3">
@@ -61,8 +59,8 @@
                 <div class="card-inner">
                     <ul class="nk-iv-wg3-nav">
                         <li><a href="{{ route('frontend.user.lorry.service.create', $lorry->id) }}"><em class="icon ni ni-notes-alt"></em> <span>Add Service Record</span></a></li>
-                        <li><a href="{{ route('frontend.user.lorry.insurance.create', $lorry->id) }}"><em class="icon ni ni-growth"></em> <span>Renew Insurance</span></a></li>
-                        <li><a href="{{ route('frontend.user.lorry.repair.create', $lorry->id) }}"><em class="icon ni ni-report-profit"></em> <span>Add Repair Record</span></a></li>
+                        <li><a href="{{ route('frontend.user.lorry.insurance.create', $lorry->id) }}"><em class="icon ni ni-list-check"></em> <span>Renew Insurance</span></a></li>
+                        <li><a href="{{ route('frontend.user.lorry.repair.create', $lorry->id) }}"><em class="icon ni ni-account-setting-alt"></em> <span>Add Repair Record</span></a></li>
                     </ul>
                 </div><!-- .card-inner -->
             </div><!-- .card-inner-group -->
@@ -194,8 +192,7 @@
                                         <td>{{ displayPrice($insurance->amount) }}</td>
                                         <td>
                                             <a class="btn btn-primary btn-sm" href="{{ route('frontend.user.lorry.insurance.edit', $insurance->id) }}">Edit</a>
-                                            <a href="#" class="delete btn btn-danger btn-sm" data-url="{{ route('frontend.user.lorry.insurance.delete', $insurance->id) }}" data-message="Are you sure want to delete this Insurance record?">Delete</a>
-
+                                            <button class="delete btn btn-danger btn-sm" data-url="{{ route('frontend.user.lorry.insurance.delete', $insurance->id) }}" data-message="Are you sure want to delete this Insurance record?">Delete</button>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -220,7 +217,7 @@
                                         <td>{{ $service->mileage_next_service }}</td>
                                         <td>
                                             <a class="btn btn-primary btn-sm" href="{{ route('frontend.user.lorry.service.edit', $service->id) }}">Edit</a>
-                                            <a href="#" class="delete btn btn-danger btn-sm" data-url="{{ route('frontend.user.lorry.service.delete', $service->id) }}" data-message="Are you sure want to delete this Service Record?">Delete</a>
+                                            <button class="delete btn btn-danger btn-sm" data-url="{{ route('frontend.user.lorry.service.delete', $service->id) }}" data-message="Are you sure want to delete this Service Record?">Delete</button>
 
                                         </td>
                                     </tr>
@@ -246,7 +243,7 @@
                                         <td>{{ $repair->remark }}</td>
                                         <td>
                                             <a class="btn btn-primary btn-sm" href="{{ route('frontend.user.lorry.repair.edit', $repair->id) }}">Edit</a>
-                                            <a href="#" class="delete btn btn-danger btn-sm" data-url="{{ route('frontend.user.lorry.repair.delete', $repair->id) }}" data-message="Are you sure want to delete this Repair & Maintenance Record?">Delete</a>
+                                            <button href="#" class="delete btn btn-danger btn-sm" data-url="{{ route('frontend.user.lorry.repair.delete', $repair->id) }}" data-message="Are you sure want to delete this Repair & Maintenance Record?">Delete</button>
 
                                         </td>
                                     </tr>
@@ -254,43 +251,6 @@
                             </table>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="container-fluid mt-2">
-        <div class="card">
-            <div class="row product-page-main">
-                <div class="col-xl-4">
-                    <img src="{{ getLorryImage($lorry->id) }}" class="img-fluid">
-                </div>
-                <div class="col-xl-8">
-                    <hr>
-
-                    <div>
-                        <table width="80%">
-                            <tbody>
-                            <tr>
-                                <td>Class</td>
-                                <td class="font-weight-bold">:{{ $lorry->class }}</td>
-                            </tr>
-                            <tr>
-                                <td>Chassis Number</td>
-                                <td class="font-weight-bold">:{{ $lorry->no_chassis }}</td>
-                            </tr>
-                            <tr>
-                                <td>Engine Number</td>
-                                <td class="font-weight-bold">:{{ $lorry->no_engine }}</td>
-                            </tr>
-                            <tr>
-                                <td>BTM</td>
-                                <td class="font-weight-bold">:{{ $lorry->btm }}</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <hr>
                 </div>
             </div>
         </div>
