@@ -19,4 +19,11 @@ class NotificationController extends Controller
 
         return view('frontend.user.notification.tutorial', compact('type'));
     }
+
+    public function testing(){
+
+        slackSendNotification("Testing by ".auth()->user()->name);
+
+        return redirect()->back()->withFlashSuccess('Sent!');
+    }
 }

@@ -25,10 +25,11 @@
             </div>
             <div class="nk-block nk-block-middle nk-auth-body">
                 <div class="brand-logo pb-5">
-                    <a href="#" class="logo-link">
-                        <img class="logo-light logo-img logo-img-lg" src="{{ asset('assets/image/logo.png') }}" alt="logo">
-                        <img class="logo-dark logo-img logo-img-lg" src="{{ asset('assets/image/logo.png') }}" srcset="./images/logo-dark2x.png 2x" alt="logo-dark">
-                    </a>
+                    <h4 class="logo-link">Tang Eng-Le Logistics (M) Sdn. Bhd</h4>
+{{--                    <a href="#" class="logo-link">--}}
+{{--                        <img class="logo-light logo-img logo-img-lg" src="{{ asset('assets/image/logo.png') }}" alt="logo">--}}
+{{--                        <img class="logo-dark logo-img logo-img-lg" src="{{ asset('assets/image/logo.png') }}" srcset="./images/logo-dark2x.png 2x" alt="logo-dark">--}}
+{{--                    </a>--}}
                 </div>
                 @include('includes.partials.messages')
                 @yield('content')

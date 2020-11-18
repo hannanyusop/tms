@@ -78,6 +78,8 @@ Route::group(['as' => 'user.', 'middleware' => ['auth', 'password.expires', conf
     Route::group(['prefix' => 'notification/', 'as' => 'notification.'], function (){
 
         Route::get('tutorial', [NotificationController::class, 'tutorial'])->name('tutorial');
+        Route::get('testing', [NotificationController::class, 'testing'])->name('testing');
+
 
     });
 

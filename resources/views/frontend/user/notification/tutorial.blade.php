@@ -34,6 +34,9 @@
                                 <p>4. Done !</p>
 
 
+                                <a href="{{ route('frontend.user.notification.testing') }}" class="btn btn-sm btn-info">Test Send Via {{ $type }}</a>
+
+
 
                             </div>
                         </div><!-- .card-inner -->

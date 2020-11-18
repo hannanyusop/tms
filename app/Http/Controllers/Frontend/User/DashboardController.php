@@ -24,7 +24,7 @@ class DashboardController extends Controller
             'expenses' => LorryTransaction::whereMonth('created_at', date('m'))->whereYear('created_at', date('Y'))->sum('credit')
         ];
 
-        $from = Carbon::now()->subDays(14);
+        $past15 = $from = Carbon::now()->subDays(14);
         do{
 
             $date_15[] = $from->format('d M');
@@ -35,6 +35,13 @@ class DashboardController extends Controller
 
         }while($from <= Carbon::now());
 
+        $graph = [
+            LorryTransaction::whereBetween('created_at', [Carbon::today(), $past15])->where('type', 'repair')->sum('credit'),
+            LorryTransaction::whereBetween('created_at', [Carbon::today(), $past15])->where('type', 'service')->sum('credit'),
+            LorryTransaction::whereBetween('created_at', [Carbon::today(), $past15])->where('type', 'insurance')->sum('credit'),
+//            'income' => LorryTransaction::whereBetween('created_at', [Carbon::today(), $past15])->sum('debit'),
+        ];
+
         $data = [
             'total_lorry' => Lorry::count(),
             'active_lorry' => Lorry::count(),
@@ -43,8 +50,10 @@ class DashboardController extends Controller
             'date_15' => $date_15,
             'exp_15' => $exp_15,
             'inc_15' => $inc_15,
-            'transactions' => LorryTransaction::orderBy('created_at', 'ASC')->limit(15)->get()
+            'transactions' => LorryTransaction::orderBy('created_at', 'ASC')->limit(15)->get(),
+            'graph' => $graph
         ];
+
 
         return view('frontend.user.dashboard', compact('cur_month', 'data'));
     }
