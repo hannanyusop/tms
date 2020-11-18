@@ -9,6 +9,7 @@ use App\Http\Controllers\Frontend\User\Lorry\LorryController;
 use App\Http\Controllers\Frontend\User\Lorry\ServiceController;
 use App\Http\Controllers\Frontend\User\Lorry\InsuranceController;
 use App\Http\Controllers\Frontend\User\Lorry\RepairController;
+use App\Http\Controllers\Frontend\User\NotificationController;
 
 
 Route::group(['as' => 'user.', 'middleware' => ['auth', 'password.expires', config('boilerplate.access.middleware.verified')]], function () {
@@ -41,6 +42,8 @@ Route::group(['as' => 'user.', 'middleware' => ['auth', 'password.expires', conf
 
         Route::group(['prefix' => 'insurance/', 'as' => 'insurance.'], function (){
 
+            Route::get('list', [InsuranceController::class, 'index'])->name('index');
+            Route::get('view/{id}', [InsuranceController::class, 'view'])->name('view');
             Route::get('create/{lorry_id}', [InsuranceController::class, 'create'])->name('create');
             Route::post('create/{lorry_id}', [InsuranceController::class, 'insert'])->name('insert');
             Route::get('edit/{id}', [InsuranceController::class, 'edit'])->name('edit');
@@ -50,6 +53,8 @@ Route::group(['as' => 'user.', 'middleware' => ['auth', 'password.expires', conf
 
         Route::group(['prefix' => 'service/', 'as' => 'service.'], function (){
 
+            Route::get('list', [ServiceController::class, 'index'])->name('index');
+            Route::get('view/{id}', [ServiceController::class, 'view'])->name('view');
             Route::get('create/{lorry_id}', [ServiceController::class, 'create'])->name('create');
             Route::post('create/{lorry_id}', [ServiceController::class, 'insert'])->name('insert');
             Route::get('edit/{id}', [ServiceController::class, 'edit'])->name('edit');
@@ -59,6 +64,8 @@ Route::group(['as' => 'user.', 'middleware' => ['auth', 'password.expires', conf
 
         Route::group(['prefix' => 'repair/', 'as' => 'repair.'], function (){
 
+            Route::get('list', [RepairController::class, 'index'])->name('index');
+            Route::get('view/{id}', [RepairController::class, 'view'])->name('view');
             Route::get('create/{lorry_id}', [RepairController::class, 'create'])->name('create');
             Route::post('create/{lorry_id}', [RepairController::class, 'insert'])->name('insert');
             Route::get('edit/{id}', [RepairController::class, 'edit'])->name('edit');
@@ -66,8 +73,11 @@ Route::group(['as' => 'user.', 'middleware' => ['auth', 'password.expires', conf
             Route::get('delete/{id}', [RepairController::class, 'delete'])->name('delete');
         });
 
+    });
 
+    Route::group(['prefix' => 'notification/', 'as' => 'notification.'], function (){
 
+        Route::get('tutorial', [NotificationController::class, 'tutorial'])->name('tutorial');
 
     });
 

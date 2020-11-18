@@ -55,7 +55,22 @@
                                     <li class="nk-menu-item">
                                         <a href="{{ route('frontend.user.lorry.create') }}" class="nk-menu-link"><span class="nk-menu-text">Register Lorry</span></a>
                                     </li>
+                                    <li class="nk-menu-item">
+                                        <a href="{{ route('frontend.user.lorry.service.index') }}" class="nk-menu-link"><span class="nk-menu-text">Lorry Service</span></a>
+                                    </li>
+                                    <li class="nk-menu-item">
+                                        <a href="{{ route('frontend.user.lorry.insurance.index') }}" class="nk-menu-link"><span class="nk-menu-text">Lorry Insurance</span></a>
+                                    </li>
+                                    <li class="nk-menu-item">
+                                        <a href="{{ route('frontend.user.lorry.repair.index') }}" class="nk-menu-link"><span class="nk-menu-text">Lorry Repair</span></a>
+                                    </li>
                                 </ul><!-- .nk-menu-sub -->
+                            </li><!-- .nk-menu-item -->
+                            <li class="nk-menu-item">
+                                <a href="{{ route('frontend.user.notification.tutorial') }}" class="nk-menu-link">
+                                    <span class="nk-menu-icon"><em class="icon ni ni-bell"></em></span>
+                                    <span class="nk-menu-text">Get Notify</span>
+                                </a>
                             </li><!-- .nk-menu-item -->
                         </ul><!-- .nk-menu -->
                     </div><!-- .nk-sidebar-menu -->

@@ -14,4 +14,9 @@ class LorryService extends Model{
 
         return $this->hasOne(Lorry::class, 'id', 'lorry_id');
     }
+
+    public function items(){
+
+        return $this->hasMany(ServiceItem::class, 'lorry_service_id', 'id');
+    }
 }

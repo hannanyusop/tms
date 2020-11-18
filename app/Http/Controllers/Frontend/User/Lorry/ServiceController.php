@@ -11,6 +11,20 @@
 
  class ServiceController extends Controller{
 
+     public function index(){
+
+         $services = LorryService::get();
+
+         return view('frontend.user.lorry.service.index', compact('services'));
+     }
+
+     public function view($id){
+
+         $service = LorryService::findOrFail($id);
+
+         return view('frontend.user.lorry.service.view', compact('service'));
+     }
+
      public function create($lorry_id){
 
          $lorry = Lorry::findOrFail($lorry_id);
