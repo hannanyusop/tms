@@ -1,12 +1,12 @@
 @extends('frontend.layouts.app')
 
-@section('title', __('Service Record'))
+@section('title', __('Edit Service Record #').$service->id)
 
 
 @php
     $links = [
     'Lorry' => route('frontend.user.lorry.index'),
-    $lorry->model => route('frontend.user.lorry.view', $lorry->id),
+    $service->lorry->model => route('frontend.user.lorry.view', $service->lorry->id),
 ];
 @endphp
 
@@ -14,7 +14,7 @@
     <div class="nk-block nk-block-lg col-md-8 offset-md-2">
         <div class="card card-bordered">
             <div class="card-inner">
-                <x-forms.post :action="route('frontend.user.lorry.service.insert', $lorry->id)" class="gy-3">
+                <x-forms.post :action="route('frontend.user.lorry.service.insert', $service->id)" class="gy-3">
                     <div class="row g-3 align-center">
                         <div class="col-lg-5">
                             <div class="form-group">
@@ -25,7 +25,7 @@
                         <div class="col-lg-7">
                             <div class="form-group">
                                 <div class="form-control-wrap">
-                                    <input class="form-control text-uppercase" type="text" id="plat_number" name="plat_number" value="{{ $lorry->plat_number }}" readonly>
+                                    <input class="form-control text-uppercase" type="text" id="plat_number" name="plat_number" value="{{ $service->lorry->plat_number }}" readonly>
                                 </div>
                             </div>
                         </div>
@@ -41,7 +41,7 @@
                         <div class="col-lg-3">
                             <div class="form-group">
                                 <div class="form-control-wrap">
-                                    <input class="form-control date-picker" data-date-format="yyyy-mm-dd" type="text" data-language="en" aria-describedby="basic-addon2" name="next_service" id="next_service" value="{{ old('next_service')? old('next_service') : date('m/d/Y')   }}" required>
+                                    <input class="form-control date-picker" data-date-format="yyyy-mm-dd" type="text" data-language="en" aria-describedby="basic-addon2" name="next_service" id="next_service" value="{{ old('next_service')? old('next_service') : $service->next_service }}" required>
                                 </div>
                             </div>
                         </div>
@@ -57,7 +57,7 @@
                         <div class="col-lg-3">
                             <div class="form-group">
                                 <div class="form-control-wrap">
-                                    <input class="form-control digits" type="number" name="mileage" id="mileage" value="{{ old('mileage')? old('mileage') : 0  }}" required>
+                                    <input class="form-control digits" type="number" name="mileage" id="mileage" value="{{ old('mileage')? old('mileage') : $service->mileage  }}" required>
                                 </div>
                             </div>
                         </div>
@@ -73,7 +73,7 @@
                         <div class="col-lg-3">
                             <div class="form-group">
                                 <div class="form-control-wrap">
-                                    <input class="form-control digits" type="number" name="mileage_next_service" id="mileage_next_service" value="{{ old('mileage_next_service')? old('mileage_next_service') : 0  }}" required>
+                                    <input class="form-control digits" type="number" name="mileage_next_service" id="mileage_next_service" value="{{ old('mileage_next_service')? old('mileage_next_service') : $service->mileage_next_service }}" required>
                                 </div>
                             </div>
                         </div>
@@ -90,7 +90,7 @@
                                 <div class="form-control-wrap">
                                     <select name="payment_method" id="payment_method" class="form-select form-control form-control-lg" required>
                                         @foreach(paymentMethod() as $key => $method)
-                                            <option value="{{ $key }}" {{ (old('payment_method') == $key)? "selected" : "" }}>{{ $method }}</option>
+                                            <option value="{{ $key }}" {{ (old('payment_method') == $key)? "selected" : ($service->payment_method == $key)? "selected" : "" }}>{{ $method }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -108,7 +108,7 @@
                         <div class="col-lg-7">
                             <div class="form-group">
                                 <div class="form-control-wrap">
-                                    <input class="form-control" type="text" name="payment_reference" id="payment_reference" value="{{ old('payment_reference') }}">
+                                    <input class="form-control" type="text" name="payment_reference" id="payment_reference" value="{{ old('payment_reference')? old('payment_reference') : $service->payment_reference }}">
                                 </div>
                             </div>
                         </div>
@@ -138,7 +138,7 @@
                         <div class="col-lg-7">
                             <div class="form-group">
                                 <div class="form-control-wrap">
-                                    <textarea name="remark" id="remark" class="form-control" rows="5">{{ old('remark') }}</textarea>
+                                    <textarea name="remark" id="remark" class="form-control" rows="5">{{ old('remark') ? old('remark') : $service->remark }}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -184,7 +184,7 @@
                         </div>
                     </div>
 
-                    <a href="{{ route('frontend.user.lorry.view', $lorry->id) }}" class="btn btn-warning pull-right mt-5" type="submit">Back</a>
+                    <a href="{{ route('frontend.user.lorry.view', $service->lorry->id) }}" class="btn btn-warning pull-right mt-5" type="submit">Back</a>
                     <button class="btn btn-primary pull-right mt-5" type="submit">Submit</button>
 
                 </x-forms.post>

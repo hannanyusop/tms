@@ -17,9 +17,16 @@ class LorryController extends Controller
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
-    {
-        $lorries = Lorry::paginate(10);
+    public function index(Request $request){
+
+        if($request->registration_number){
+
+            $lorries = Lorry::where('plat_number', 'LIKE', "%$request->registration_number%")->paginate(10);
+
+        }else{
+
+            $lorries = Lorry::paginate(10);
+        }
         return view('frontend.user.lorry.index', compact('lorries'));
     }
 
@@ -141,14 +148,14 @@ class LorryController extends Controller
 
                 $validate = $request->validate([
                     'image' => 'file|image',
-                    'brand' => 'required',
-                    'model' => 'required',
-                    'no_chassis' => 'required',
-                    'no_engine' => 'required',
-                    'class' => 'required',
-                    'engine_capacity' => 'required',
+                    'brand' => 'required|min:2:max:20',
+                    'model' => 'required|min:2|max:50',
+                    'no_chassis' => 'required|min:2|max:50',
+                    'no_engine' => 'required|min:2|max:50',
+                    'class' => 'required|max:20',
+                    'engine_capacity' => 'required|numeric|min:0',
                     'registration_date' => 'required|date',
-                    'btm' => 'required|numeric'
+                    'btm' => 'required|numeric|min:0'
                 ]);
 
                 if($request->image){
@@ -157,10 +164,10 @@ class LorryController extends Controller
                     #upload file
                 }
 
-                $lorry->brand = $request->brand;
-                $lorry->model = $request->model;
-                $lorry->no_chassis = $request->no_chassis;
-                $lorry->no_engine = $request->no_engine;
+                $lorry->brand = strtoupper($request->brand);
+                $lorry->model = strtoupper($request->model);
+                $lorry->no_chassis = strtoupper($request->no_chassis);
+                $lorry->no_engine = strtoupper($request->no_engine);
                 $lorry->class = $request->class;
                 $lorry->engine_capacity = $request->engine_capacity;
                 $lorry->registration_date = $request->registration_date;
@@ -177,7 +184,7 @@ class LorryController extends Controller
                 $validate = $request->validate([
                     'expire_date' => 'required|date',
                     'roadtax_price' => 'required|numeric',
-                    'roatax_document' => 'file|max:3000',
+                    'roatax_document' => 'file|max:5000',
                     'insurance_price' => 'required|numeric',
                     'insurance_document' => 'file|max:3000',
                     'remark' => 'max:200'
@@ -200,7 +207,11 @@ class LorryController extends Controller
                 $insurance->insurance_price = $request->insurance_price;
                 $insurance->remark = $request->remark;
 
+                $amount =  $request->insurance_price + $request->roadtax_price;
+
                 $insurance->save();
+
+                insertTransaction($insurance->lorry_id, $insurance->id, 'insurance', '', 0.00, $amount);
 
                 return redirect()->route('frontend.user.lorry.create', ['step' => 4])
                     ->withFlashSuccess('Lorry Road Tax & Insurance saved!');
@@ -213,8 +224,8 @@ class LorryController extends Controller
                     'mileage' => 'required|numeric',
                     'mileage_next_service' => 'required|numeric',
                     'amount' => 'required|numeric',
-                    'payment_method' => 'required|in:1,2',
-                    'payment_reference' => '',
+                    'payment_method' => 'required|in:0,1,2,',
+                    'payment_reference' => 'required',
                     'payment_documents' => 'nullable|file:3000',
                     'remark' => 'max:200',
                 ]);
@@ -243,6 +254,8 @@ class LorryController extends Controller
                 $item->total_price = $request->amount;
                 $item->save();
 
+                insertTransaction($service->lorry_id, $service->id, 'service', '', 0.00, $request->amount);
+
                 return redirect()->route('frontend.user.lorry.create', ['step' => 5])
                     ->withFlashSuccess('Lorry Service information saved!');
             }else{
@@ -257,6 +270,46 @@ class LorryController extends Controller
         $lorry = Lorry::findOrFail($id);
 
         return view('frontend.user.lorry.view', compact('lorry'));
+    }
+
+    public function edit($id){
+
+        $lorry = Lorry::findOrFail($id);
+
+        return view('frontend.user.lorry.edit', compact('lorry'));
+    }
+
+    public function update(Request  $request, $id){
+
+
+        $request->validate([
+            'plat_number' => 'required|unique:lorries,plat_number,'.$id,
+            'image' => 'file|image',
+            'brand' => 'required|min:2:max:20',
+            'model' => 'required|min:2|max:50',
+            'no_chassis' => 'required|min:2|max:50',
+            'no_engine' => 'required|min:2|max:50',
+            'class' => 'required|max:20',
+            'engine_capacity' => 'required|numeric|min:0',
+            'registration_date' => 'required|date',
+            'btm' => 'required|numeric|min:0'
+        ]);
+
+        $lorry = Lorry::findOrFail($id);
+
+        $lorry->plat_number = $request->plat_number;
+        $lorry->brand = strtoupper($request->brand);
+        $lorry->model = strtoupper($request->model);
+        $lorry->no_chassis = strtoupper($request->no_chassis);
+        $lorry->no_engine = strtoupper($request->no_engine);
+        $lorry->class = strtoupper($request->class);
+        $lorry->engine_capacity = $request->engine_capacity;
+        $lorry->registration_date = $request->registration_date;
+        $lorry->btm = $request->btm;
+        $lorry->save();
+
+        return  redirect()->back()->withFlashSuccess('Lorry information updated!');
+
     }
 
 }

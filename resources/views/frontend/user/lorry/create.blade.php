@@ -28,7 +28,7 @@
                                 </div>
                                 <div class="card-inner">
                                     <ul class="list list-step">
-                                        <li class="{{ (request('step') > 1)? "list-step-done" : "" }}">Check Plat Number</li>
+                                        <li class="{{ (request('step') > 1)? "list-step-done" : "" }}">Registration Number Checking</li>
                                         <li class="{{ (request('step') > 2)? "list-step-done" : "" }}">Lorry Information</li>
                                         <li class="{{ (request('step') > 3)? "list-step-done" : "" }}">Road Tax & Insurance</li>
                                         <li class="{{ (request('step') > 4)? "list-step-done" : "" }}">Service Record</li>
@@ -57,14 +57,14 @@
                                             <div class="row g-3 align-center">
                                                 <div class="col-lg-5">
                                                     <div class="form-group">
-                                                        <label class="form-label" for="plat_number">Plat Number</label>
-                                                        <span class="form-note">Let's give me the plat number.</span>
+                                                        <label class="form-label" for="plat_number">Registration Number</label>
+                                                        <span class="form-note">To ensure the lorry is not registered yet.</span>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-7">
                                                     <div class="form-group">
                                                         <div class="form-control-wrap">
-                                                            <input class="form-control text-uppercase" type="text" name="plat_number" id="plat_number" value="{{ old('plat_number') }}">
+                                                            <input class="form-control text-uppercase" type="text" name="plat_number" id="plat_number" placeholder="Ex: PNG1234" value="{{ old('plat_number') }}" required>
                                                             @error('plat_number')
                                                             <div class="invalid-feedback">{{ $message }}</div>
                                                             @enderror
@@ -90,7 +90,7 @@
                                             <div class="row g-3 align-center">
                                                 <div class="col-lg-5">
                                                     <div class="form-group">
-                                                        <label class="form-label" for="site-name">Plat Number</label>
+                                                        <label class="form-label" for="site-name">Registration Number</label>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-7">
@@ -105,13 +105,13 @@
                                                 <div class="col-lg-5">
                                                     <div class="form-group">
                                                         <label class="form-label" for="brand">Brand</label>
-                                                        <span class="form-note">Example : SCANIA</span>
+                                                        <span class="form-note">Required | Min:2 | Max:20</span>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-7">
                                                     <div class="form-group">
                                                         <div class="form-control-wrap">
-                                                            <input class="form-control text-uppercase" type="text" name="brand" id="brand" value="{{ old('brand')? old('brand') : $lorry->brand  }}" required>
+                                                            <input class="form-control text-uppercase" type="text" name="brand" id="brand" placeholder="SCANIA" value="{{ old('brand')? old('brand') : $lorry->brand  }}" required>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -120,13 +120,13 @@
                                                 <div class="col-lg-5">
                                                     <div class="form-group">
                                                         <label class="form-label" for="model">Model</label>
-                                                        <span class="form-note">Example : CS-4324</span>
+                                                        <span class="form-note">Required | Min:2 | Max:50</span>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-7">
                                                     <div class="form-group">
                                                         <div class="form-control-wrap">
-                                                            <input class="form-control text-uppercase" type="text" name="model" id="model" value="{{ old('model')? old('model') : $lorry->model  }}" required>
+                                                            <input class="form-control text-uppercase" type="text" name="model" id="model" placeholder="WSI 150 6x2" value="{{ old('model')? old('model') : $lorry->model  }}" required>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -135,13 +135,13 @@
                                                 <div class="col-lg-5">
                                                     <div class="form-group">
                                                         <label class="form-label" for="model">Chassis Number</label>
-                                                        <span class="form-note">Please check Bluecard</span>
+                                                        <span class="form-note">Required | Min:2 | Max:50</span>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-7">
                                                     <div class="form-group">
                                                         <div class="form-control-wrap">
-                                                            <input class="form-control text-uppercase" type="text" name="no_chassis" id="no_chassis" value="{{ old('no_chassis')? old('no_chassis') : $lorry->no_chassis  }}" required>
+                                                            <input class="form-control text-uppercase" type="text" name="no_chassis" placeholder="E423JFDG084323" id="no_chassis" value="{{ old('no_chassis')? old('no_chassis') : $lorry->no_chassis  }}" required>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -151,13 +151,13 @@
                                                 <div class="col-lg-5">
                                                     <div class="form-group">
                                                         <label class="form-label" for="no_engine">Engine Number</label>
-                                                        <span class="form-note">Example : </span>
+                                                        <span class="form-note">Required | Min:2 | Max:50</span>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-7">
                                                     <div class="form-group">
                                                         <div class="form-control-wrap">
-                                                            <input class="form-control text-uppercase" type="text" name="no_engine" id="no_engine" value="{{ old('no_engine')? old('no_engine') : $lorry->model  }}" required>
+                                                            <input class="form-control text-uppercase" type="text" name="no_engine" id="no_engine" placeholder="2H2XAHTL43847556" value="{{ old('no_engine')? old('no_engine') : $lorry->model  }}" required>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -166,14 +166,14 @@
                                             <div class="row g-3 align-center">
                                                 <div class="col-lg-5">
                                                     <div class="form-group">
-                                                        <label class="form-label" for="engine_capacity">Engine Capacity</label>
-                                                        <span class="form-note">Example : </span>
+                                                        <label class="form-label" for="engine_capacity">Engine Capacity (L)</label>
+                                                        <span class="form-note">Required</span>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-7">
                                                     <div class="form-group">
                                                         <div class="form-control-wrap">
-                                                            <input class="form-control text-uppercase" type="number" name="engine_capacity" id="engine_capacity" value="{{ old('engine_capacity')? old('engine_capacity') : $lorry->engine_capacity  }}" required>
+                                                            <input class="form-control text-uppercase" type="number" name="engine_capacity" id="engine_capacity" placeholder="7" value="{{ old('engine_capacity')? old('engine_capacity') : $lorry->engine_capacity  }}" required>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -183,13 +183,13 @@
                                                 <div class="col-lg-5">
                                                     <div class="form-group">
                                                         <label class="form-label" for="class">Class</label>
-                                                        <span class="form-note">Example : </span>
+                                                        <span class="form-note">Required | Max : 20</span>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-7">
                                                     <div class="form-group">
                                                         <div class="form-control-wrap">
-                                                            <input class="form-control text-uppercase" type="text" name="class" id="class" value="{{ old('class')? old('class') : $lorry->class  }}" required>
+                                                            <input class="form-control text-uppercase" type="text" name="class" id="class" placeholder="1" value="{{ old('class')? old('class') : $lorry->class  }}" required>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -199,7 +199,7 @@
                                                 <div class="col-lg-5">
                                                     <div class="form-group">
                                                         <label class="form-label" for="no_engine">Registration Date</label>
-                                                        <span class="form-note">Example : </span>
+                                                        <span class="form-note">Required </span>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-7">
@@ -214,14 +214,14 @@
                                             <div class="row g-3 align-center">
                                                 <div class="col-lg-5">
                                                     <div class="form-group">
-                                                        <label class="form-label" for="no_engine">BTM (Berat Tanpa Muatan)</label>
-                                                        <span class="form-note">Example : </span>
+                                                        <label class="form-label" for="no_engine">BTM (KG)</label>
+                                                        <span class="form-note">Required </span>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-7">
                                                     <div class="form-group">
                                                         <div class="form-control-wrap">
-                                                            <input class="form-control" type="number" name="btm" id="btm" value="{{ old('btm')? old('btm') : $lorry->btm  }}" required>
+                                                            <input class="form-control" type="number" name="btm" id="btm"  placeholder="1200" value="{{ old('btm')? old('btm') : $lorry->btm  }}" required>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -247,7 +247,7 @@
                                                 <div class="col-lg-5">
                                                     <div class="form-group">
                                                         <label class="form-label" for="site-name">Expired Date</label>
-                                                        <span class="form-note">Specify the name of your website.</span>
+                                                        <span class="form-note">Required</span>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-4">
@@ -261,14 +261,14 @@
                                             <div class="row g-3 align-center">
                                                 <div class="col-lg-5">
                                                     <div class="form-group">
-                                                        <label class="form-label" for="roadtax_price">Road Tax Price</label>
-                                                        <span class="form-note">Specify the email address of your website.</span>
+                                                        <label class="form-label" for="roadtax_price">Road Tax Price (RM)</label>
+                                                        <span class="form-note">Required | Min : 0</span>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-7">
                                                     <div class="form-group">
                                                         <div class="form-control-wrap">
-                                                            <input class="form-control " type="number" step="0.10" name="roadtax_price" id="roadtax_price" value="{{ old('roadtax_price') }}">
+                                                            <input class="form-control " type="number" step="0.10" name="roadtax_price" id="roadtax_price" placeholder="100.00" value="{{ old('roadtax_price') }}" required>
                                                             @error('roadtax_price')
                                                             <div class="invalid-feedback">{{ $message }}</div>
                                                             @enderror
@@ -280,7 +280,7 @@
                                                 <div class="col-lg-5">
                                                     <div class="form-group">
                                                         <label class="form-label">Road Tax Document</label>
-                                                        <span class="form-note">Specify the email address of your website.</span>
+                                                        <span class="form-note">5 MB | Document/Image Format Only</span>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-7">
@@ -294,14 +294,14 @@
                                             <div class="row g-3 align-center">
                                                 <div class="col-lg-5">
                                                     <div class="form-group">
-                                                        <label class="form-label">Insurance Price</label>
-                                                        <span class="form-note">Specify the email address of your website.</span>
+                                                        <label class="form-label">Insurance Price(RM)</label>
+                                                        <span class="form-note">Required | Min : 0</span>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-7">
                                                     <div class="form-group">
                                                         <div class="form-control-wrap">
-                                                            <input class="form-control " type="number" step="0.10" name="insurance_price" id="insurance_price" value="{{ old('insurance_price') }}">
+                                                            <input class="form-control " type="number" step="0.10" name="insurance_price" id="insurance_price" placeholder="2000.00" value="{{ old('insurance_price') }}" required>
                                                             @error('insurance_price')
                                                             <div class="invalid-feedback">{{ $message }}</div>
                                                             @enderror
@@ -313,7 +313,7 @@
                                                 <div class="col-lg-5">
                                                     <div class="form-group">
                                                         <label class="form-label">Insurance Cover Note</label>
-                                                        <span class="form-note">Specify the email address of your website.</span>
+                                                        <span class="form-note">5 MB | Document/Image Format Only</span>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-7">
@@ -327,8 +327,26 @@
                                             <div class="row g-3 align-center">
                                                 <div class="col-lg-5">
                                                     <div class="form-group">
+                                                        <label class="form-label" for="payment_reference">Payment Reference</label>
+                                                        <span class="form-note">Required | Service Invoice/Receipt Number</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-7">
+                                                    <div class="form-group">
+                                                        <div class="form-control-wrap">
+                                                            <input class="form-control " type="text" name="payment_reference" id="payment_reference" placeholder="SR1321/201112-032" value="{{ old('payment_reference') }}" required>
+                                                            @error('payment_reference')
+                                                            <div class="invalid-feedback">{{ $message }}</div>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row g-3 align-center">
+                                                <div class="col-lg-5">
+                                                    <div class="form-group">
                                                         <label class="form-label" for="remark">Remark</label>
-                                                        <span class="form-note">Specify the email address of your website.</span>
+                                                        <span class="form-note">Max : 200 Words</span>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-7">
@@ -342,7 +360,7 @@
                                             <div class="row g-3">
                                                 <div class="col-lg-7 offset-lg-5">
                                                     <div class="form-group mt-2">
-                                                        <button type="submit" class="btn btn-lg btn-primary">Update</button>
+                                                        <button type="submit" class="btn btn-lg btn-primary">Next</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -351,14 +369,14 @@
                             @elseif(request('step') == 4)
                                 <div class="card-inner card-inner-lg h-100">
                                         <div class="card-head">
-                                            <h5 class="card-title">Service & Maintainance Record</h5>
+                                            <h5 class="card-title">Service Record</h5>
                                         </div>
                                         <x-forms.post :action="route('frontend.user.lorry.insert', ['step' => 4])" class="gy-3">
                                             <div class="row g-3 align-center">
                                                 <div class="col-lg-5">
                                                     <div class="form-group">
                                                         <label class="form-label" for="next_service">Next Service</label>
-                                                        <span class="form-note">Specify the name of your .</span>
+                                                        <span class="form-note">Required</span>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-4">
@@ -372,14 +390,14 @@
                                             <div class="row g-3 align-center">
                                                 <div class="col-lg-5">
                                                     <div class="form-group">
-                                                        <label class="form-label" for="mileage">Current Mileage</label>
-                                                        <span class="form-note">Specify the email address of your website.</span>
+                                                        <label class="form-label" for="mileage">Current Mileage (ODO Meter)</label>
+                                                        <span class="form-note">Required | "0" for broken ODO meter</span>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-7">
                                                     <div class="form-group">
                                                         <div class="form-control-wrap">
-                                                            <input class="form-control " type="number" step="1" name="mileage" id="mileage" value="{{ old('mileage')? old('mileage') : 0 }}" required>
+                                                            <input class="form-control " type="number" step="1" name="mileage" placeholder="120000" id="mileage" value="{{ old('mileage')? old('mileage') : 0 }}" required>
                                                             @error('mileage')
                                                             <div class="invalid-feedback">{{ $message }}</div>
                                                             @enderror
@@ -390,14 +408,14 @@
                                             <div class="row g-3 align-center">
                                                 <div class="col-lg-5">
                                                     <div class="form-group">
-                                                        <label class="form-label" for="mileage_next_service">Next Mileage Service</label>
-                                                        <span class="form-note">Specify the email address of your website.</span>
+                                                        <label class="form-label" for="mileage_next_service">Next Mileage Service (ODO Meter)</label>
+                                                        <span class="form-note">Required | "0" for broken ODO meter</span>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-7">
                                                     <div class="form-group">
                                                         <div class="form-control-wrap">
-                                                            <input class="form-control " type="number" step="1" name="mileage_next_service" id="mileage_next_service" value="{{ old('mileage_next_service')? old('mileage_next_service') : 0 }}" required>
+                                                            <input class="form-control " type="number" step="1" name="mileage_next_service" placeholder="150000" id="mileage_next_service" value="{{ old('mileage_next_service')? old('mileage_next_service') : 0 }}" required>
                                                             @error('mileage_next_service')
                                                             <div class="invalid-feedback">{{ $message }}</div>
                                                             @enderror
@@ -408,8 +426,8 @@
                                             <div class="row g-3 align-center">
                                                 <div class="col-lg-5">
                                                     <div class="form-group">
-                                                        <label class="form-label" for="amount">Amount</label>
-                                                        <span class="form-note">Specify the email address of your website.</span>
+                                                        <label class="form-label" for="amount">Amount (RM)</label>
+                                                        <span class="form-note">Required | Min : 0</span>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-7">
@@ -427,7 +445,7 @@
                                                 <div class="col-lg-5">
                                                     <div class="form-group">
                                                         <label class="form-label" for="payment_method">Payment Method</label>
-                                                        <span class="form-note">Specify the email address of your website.</span>
+                                                        <span class="form-note">Required</span>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-7">
@@ -450,13 +468,13 @@
                                                 <div class="col-lg-5">
                                                     <div class="form-group">
                                                         <label class="form-label" for="payment_reference">Payment Reference</label>
-                                                        <span class="form-note">You can put your receipt number</span>
+                                                        <span class="form-note">Required | Service Invoice/Receipt Number</span>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-7">
                                                     <div class="form-group">
                                                         <div class="form-control-wrap">
-                                                            <input class="form-control " type="text" name="payment_reference" id="payment_reference" value="{{ old('payment_reference') }}" required>
+                                                            <input class="form-control " type="text" name="payment_reference" id="payment_reference" placeholder="SR1321/201112-032" value="{{ old('payment_reference') }}" required>
                                                             @error('payment_reference')
                                                             <div class="invalid-feedback">{{ $message }}</div>
                                                             @enderror
@@ -468,7 +486,7 @@
                                                 <div class="col-lg-5">
                                                     <div class="form-group">
                                                         <label class="form-label" for="payment_documents">Upload Receipt</label>
-                                                        <span class="form-note"></span>
+                                                        <span class="form-note">Max : 5MB | Document/Image format Only</span>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-7">
@@ -482,41 +500,8 @@
                                             <div class="row g-3 align-center">
                                                 <div class="col-lg-5">
                                                     <div class="form-group">
-                                                        <label class="form-label">Insurance Price</label>
-                                                        <span class="form-note">Specify the email address of your website.</span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-7">
-                                                    <div class="form-group">
-                                                        <div class="form-control-wrap">
-                                                            <input class="form-control " type="number" step="0.10" name="insurance_price" id="insurance_price" value="{{ old('insurance_price')? old('insurance_price') : 0 }}" required>
-                                                            @error('insurance_price')
-                                                            <div class="invalid-feedback">{{ $message }}</div>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row g-3 align-center">
-                                                <div class="col-lg-5">
-                                                    <div class="form-group">
-                                                        <label class="form-label">Insurance Cover Note</label>
-                                                        <span class="form-note">Specify the email address of your website.</span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-7">
-                                                    <div class="form-group">
-                                                        <div class="form-control-wrap">
-                                                            <input type="file"  class="form-control" id="test">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row g-3 align-center">
-                                                <div class="col-lg-5">
-                                                    <div class="form-group">
                                                         <label class="form-label" for="remark">Remark</label>
-                                                        <span class="form-note">Specify the email address of your website.</span>
+                                                        <span class="form-note">Max : 200 Words</span>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-7">
@@ -543,8 +528,9 @@
                                             <div class="nk-block-head-content text-center">
                                                 <h2 class="nk-block-title fw-normal text-primary">Nice, New lorry registered!</h2>
                                                 <div class="nk-block-des">
-                                                    <p>Welcome to our <strong>DashLite Crypto Dashboard</strong>.
-                                                        You are few steps away to complete your profile. These are required to buy and sell on our platform! Let’s start!</p>
+                                                    <p>Congratulations! <strong class="text-success front-weight-bold">{{ $lorry->plat_number }}</strong> was successfully registered into the system. Please make sure
+                                                        all Service, Repair , Renewing Insurance and etc. recorded to this system to help us to calculate & estimate the
+                                                        truck profit & expenses.</p>
                                                     <a href="{{ route('frontend.user.lorry.index') }}" class="btn btn-lg btn-primary mt-2">Continue</a>
                                                 </div>
                                             </div>

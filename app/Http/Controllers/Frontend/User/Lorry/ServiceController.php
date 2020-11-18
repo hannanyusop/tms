@@ -23,15 +23,14 @@
 
          $lorry = Lorry::findOrFail($lorry_id);
 
-         $validate = $request->validate([
+         $request->validate([
              'next_service' => 'required|date',
-             'mileage' => 'required',
-             'mileage_next_service' => 'required',
-             'amount' => '',
-             'payment_method' => '',
+             'mileage' => 'required|numeric|min:0',
+             'mileage_next_service' => 'required|numeric|min:0',
+             'payment_method' => 'required',
              'payment_reference' => 'required',
              'payment_documents' => 'nullable|file|max:5000',
-             'remark' => ''
+             'remark' => 'max:2000'
          ]);
 
          $service = new LorryService();
@@ -83,15 +82,14 @@
 
          $service = LorryService::findOrFail($id);
 
-         $validate = $request->validate([
-             'next_service' => 'required',
-             'mileage' => '',
-             'mileage_next_service' => '',
-             'amount' => '',
-             'payment_method' => '',
-             'payment_reference' => '',
-             'payment_documents' => '',
-             'remark' => ''
+         $request->validate([
+             'next_service' => 'required|date',
+             'mileage' => 'required|numeric|min:0',
+             'mileage_next_service' => 'required|numeric|min:0',
+             'payment_method' => 'required',
+             'payment_reference' => 'required',
+             'payment_documents' => 'nullable|file|max:5000',
+             'remark' => 'max:2000'
          ]);
 
          foreach ($request->items as $key => $data){

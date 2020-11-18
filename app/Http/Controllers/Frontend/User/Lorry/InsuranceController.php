@@ -22,12 +22,11 @@
 
          $request->validate([
              'expire_date' => 'required',
-             'roadtax_price' => '',
-             'roadtax_document' => '',
-             'insurance_price' => '',
-             'insurance_document' => '',
-             'amount' => '',
-             'remark' => ''
+             'roadtax_price' => 'required|numeric|min:0',
+             'roadtax_document' => 'max:5000',
+             'insurance_price' => 'required|numeric|min:0',
+             'insurance_document' => 'max:5000',
+             'remark' => 'max:200'
          ]);
 
          $insurance = new LorryInsurance();
@@ -61,14 +60,13 @@
 
          $insurance = LorryInsurance::findOrFail($id);
 
-         $validate = $request->validate([
+         $request->validate([
              'expire_date' => 'required',
-             'roadtax_price' => '',
-             'roadtax_document' => '',
-             'insurance_price' => '',
-             'insurance_document' => '',
-             'amount' => '',
-             'remark' => ''
+             'roadtax_price' => 'required|numeric|min:0',
+             'roadtax_document' => 'max:5000',
+             'insurance_price' => 'required|numeric|min:0',
+             'insurance_document' => 'max:5000',
+             'remark' => 'max:200'
          ]);
 
 
