@@ -58,9 +58,9 @@
                 </div><!-- .card-inner -->
                 <div class="card-inner">
                     <ul class="nk-iv-wg3-nav">
-                        <li><a href="{{ route('frontend.user.lorry.service.create', $lorry->id) }}"><em class="icon ni ni-notes-alt"></em> <span>Add Service Record</span></a></li>
-                        <li><a href="{{ route('frontend.user.lorry.insurance.create', $lorry->id) }}"><em class="icon ni ni-list-check"></em> <span>Renew Insurance</span></a></li>
-                        <li><a href="{{ route('frontend.user.lorry.repair.create', $lorry->id) }}"><em class="icon ni ni-account-setting-alt"></em> <span>Add Repair Record</span></a></li>
+                        <li><a href="{{ route('frontend.user.lorry.service.create', $lorry->id) }}"><em class="icon ni ni-done"></em> <span>Add Service Record</span></a></li>
+                        <li><a href="{{ route('frontend.user.lorry.insurance.create', $lorry->id) }}"><em class="icon ni ni-shield-check"></em> <span>Renew Insurance</span></a></li>
+                        <li><a href="{{ route('frontend.user.lorry.repair.create', $lorry->id) }}"><em class="icon ni ni-setting"></em> <span>Add Repair Record</span></a></li>
                     </ul>
                 </div><!-- .card-inner -->
             </div><!-- .card-inner-group -->

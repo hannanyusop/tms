@@ -8,6 +8,20 @@
 
  class InsuranceController extends Controller{
 
+     public function index(){
+
+         $insurances = LorryInsurance::orderBy('id', 'DESC')->get();
+
+         return view('frontend.user.lorry.insurance.index', compact('insurances'));
+     }
+
+     public function view($id){
+
+         $insurance = LorryInsurance::findOrFail($id);
+
+         return view('frontend.user.lorry.insurance.view', compact('insurance'));
+     }
+
      public function create($lorry_id){
 
          $lorry = Lorry::findOrFail($lorry_id);

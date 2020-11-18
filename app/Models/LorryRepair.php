@@ -11,4 +11,14 @@ class LorryRepair extends Model{
     public $fillable = [
         'amount',
     ];
+
+    public function lorry(){
+
+        return $this->hasOne(Lorry::class, 'id', 'lorry_id');
+    }
+
+    public function items(){
+
+        return $this->hasMany(RepairItem::class, 'lorry_repair_id', 'id');
+    }
 }

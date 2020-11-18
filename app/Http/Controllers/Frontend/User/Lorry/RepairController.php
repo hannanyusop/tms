@@ -10,6 +10,20 @@
 
  class RepairController extends Controller{
 
+     public function index(){
+
+         $repairs = LorryRepair::orderBy('id', 'DESC')->get();
+
+         return view('frontend.user.lorry.repair.index', compact('repairs'));
+     }
+
+     public function view($id){
+
+         $repair = LorryRepair::findOrFail($id);
+
+         return view('frontend.user.lorry.repair.view', compact('repair'));
+     }
+
      public function create($lorry_id){
 
          $lorry = Lorry::findOrFail($lorry_id);

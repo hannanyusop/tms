@@ -56,13 +56,13 @@
                                         <a href="{{ route('frontend.user.lorry.create') }}" class="nk-menu-link"><span class="nk-menu-text">Register Lorry</span></a>
                                     </li>
                                     <li class="nk-menu-item">
-                                        <a href="{{ route('frontend.user.lorry.service.index') }}" class="nk-menu-link"><span class="nk-menu-text">Lorry Service</span></a>
+                                        <a href="{{ route('frontend.user.lorry.service.index') }}" class="nk-menu-link"><span class="nk-menu-text">Service</span></a>
                                     </li>
                                     <li class="nk-menu-item">
-                                        <a href="{{ route('frontend.user.lorry.insurance.index') }}" class="nk-menu-link"><span class="nk-menu-text">Lorry Insurance</span></a>
+                                        <a href="{{ route('frontend.user.lorry.insurance.index') }}" class="nk-menu-link"><span class="nk-menu-text">Insurance</span></a>
                                     </li>
                                     <li class="nk-menu-item">
-                                        <a href="{{ route('frontend.user.lorry.repair.index') }}" class="nk-menu-link"><span class="nk-menu-text">Lorry Repair</span></a>
+                                        <a href="{{ route('frontend.user.lorry.repair.index') }}" class="nk-menu-link"><span class="nk-menu-text">Repair</span></a>
                                     </li>
                                 </ul><!-- .nk-menu-sub -->
                             </li><!-- .nk-menu-item -->

@@ -1,6 +1,6 @@
 @extends('frontend.layouts.app')
 
-@section('title', __('Create'))
+@section('title', __('Edit'))
 
 
 @php

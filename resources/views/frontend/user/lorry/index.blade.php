@@ -66,16 +66,25 @@
                             </span>
                             </td>
                             <td class="tb-odr-action">
-                                <div class="dropdown">
-                                    <a class="text-soft dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown" data-offset="-8,0"><em class="icon ni ni-more-h"></em></a>
-                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-xs">
-                                        <ul class="link-list-plain">
-                                            <li><a href="{{ route('frontend.user.lorry.view', $lorry->id) }}" class="text-primary">View</a></li>
-                                            <li><a href="{{ route('frontend.user.lorry.edit', $lorry->id) }}" class="text-primary">Edit</a></li>
-                                            <li><a href="#" class="text-danger">Remove</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
+                                <ul class="nk-tb-actions gx-1">
+                                    <li>
+                                        <div class="drodown">
+                                            <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                <ul class="link-list-opt no-bdr">
+                                                    <li><a target="_blank" href="{{ route('frontend.user.lorry.view', $lorry->id) }}"><em class="icon ni ni-eye"></em><span>View Details</span></a></li>
+                                                    <li><a href="{{ route('frontend.user.lorry.edit', $lorry->id) }}"><em class="icon ni ni-edit"></em><span>Edit</span></a></li>
+                                                    <li><a href="{{ route('frontend.user.lorry.repair.create', $lorry->id) }}"><em class="icon ni ni-setting"></em><span>Repair</span></a></li>
+                                                    <li><a href="{{ route('frontend.user.lorry.service.create', $lorry->id) }}"><em class="icon ni ni-done"></em><span>Service</span></a></li>
+                                                    <li><a href="{{ route('frontend.user.lorry.service.create', $lorry->id) }}"><em class="icon ni ni-shield-check"></em><span>Renew Insurance</span></a></li>
+                                                    <li><a href="#"><em class="icon ni ni-repeat"></em><span>Transaction</span></a></li>
+                                                    <li class="divider"></li>
+                                                    <li><a href="#"><em class="icon ni ni-trash"></em><span>Delete</span></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
                             </td>
                         </tr>
                     @endforeach
