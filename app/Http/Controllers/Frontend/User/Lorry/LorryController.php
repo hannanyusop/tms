@@ -153,6 +153,9 @@ class LorryController extends Controller
                     'no_chassis' => 'required|min:2|max:50',
                     'no_engine' => 'required|min:2|max:50',
                     'class' => 'required|max:20',
+                    'market_price' => 'required|numeric|min:0',
+                    'loan_balance' => 'required|numeric|min:0',
+                    'installment_amount' => 'required|numeric|min:0',
                     'engine_capacity' => 'required|numeric|min:0',
                     'registration_date' => 'required|date',
                     'btm' => 'required|numeric|min:0'
@@ -169,6 +172,9 @@ class LorryController extends Controller
                 $lorry->no_chassis = strtoupper($request->no_chassis);
                 $lorry->no_engine = strtoupper($request->no_engine);
                 $lorry->class = $request->class;
+                $lorry->market_price = $request->market_price;
+                $lorry->loan_balance = $request->loan_balance;
+                $lorry->installment_amount = $request->installment_amount;
                 $lorry->engine_capacity = $request->engine_capacity;
                 $lorry->registration_date = $request->registration_date;
                 $lorry->btm = $request->btm;
@@ -290,6 +296,9 @@ class LorryController extends Controller
             'no_chassis' => 'required|min:2|max:50',
             'no_engine' => 'required|min:2|max:50',
             'class' => 'required|max:20',
+            'market_price' => 'required|numeric|min:0',
+            'loan_balance' => 'required|numeric|min:0',
+            'installment_amount' => 'required|numeric|min:0',
             'engine_capacity' => 'required|numeric|min:0',
             'registration_date' => 'required|date',
             'btm' => 'required|numeric|min:0'
@@ -303,6 +312,9 @@ class LorryController extends Controller
         $lorry->no_chassis = strtoupper($request->no_chassis);
         $lorry->no_engine = strtoupper($request->no_engine);
         $lorry->class = strtoupper($request->class);
+        $lorry->market_price = $request->market_price;
+        $lorry->loan_balance = $request->loan_balance;
+        $lorry->installment_amount = $request->installment_amount;
         $lorry->engine_capacity = $request->engine_capacity;
         $lorry->registration_date = $request->registration_date;
         $lorry->btm = $request->btm;

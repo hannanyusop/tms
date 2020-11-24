@@ -137,6 +137,61 @@
                                     <div class="row g-3 align-center">
                                         <div class="col-lg-5">
                                             <div class="form-group">
+                                                <label class="form-label" for="market_price">Market Balance (RM)</label>
+                                                <span class="form-note">Required | Min : 0</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-7">
+                                            <div class="form-group">
+                                                <div class="form-control-wrap">
+                                                    <input class="form-control " type="number" name="market_price" id="market_price" value="{{ old('market_price')? old('market_price') : $lorry->market_price }}" required>
+                                                    @error('market_price')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row g-3 align-center">
+                                        <div class="col-lg-5">
+                                            <div class="form-group">
+                                                <label class="form-label" for="loan_balance">Loan Balance (RM)</label>
+                                                <span class="form-note">Required | Min : 0 | Or insert 0</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-7">
+                                            <div class="form-group">
+                                                <div class="form-control-wrap">
+                                                    <input class="form-control " type="number" name="loan_balance" id="loan_balance" value="{{ old('loan_balance')? old('loan_balance') : $lorry->loan_balance }}" required>
+                                                    @error('loan_balance')
+                                                        <div class="invalid-feedback">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row g-3 align-center">
+                                        <div class="col-lg-5">
+                                            <div class="form-group">
+                                                <label class="form-label" for="installment_amount">Monthly Installment Amount (RM)</label>
+                                                <span class="form-note">Required | Min : 0</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-7">
+                                            <div class="form-group">
+                                                <div class="form-control-wrap">
+                                                    <input class="form-control " type="number" name="installment_amount" id="installment_amount" value="{{ old('installment_amount')? old('installment_amount') : $lorry->installment_amount }}" required>
+                                                    @error('installment_amount')
+                                                        <div class="invalid-feedback">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row g-3 align-center">
+                                        <div class="col-lg-5">
+                                            <div class="form-group">
                                                 <label class="form-label" for="no_engine">Registration Date</label>
                                                 <span class="form-note">Required </span>
                                             </div>

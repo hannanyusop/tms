@@ -17,7 +17,7 @@
                                         <div class="nk-iv-wg3-amount">
                                             <div class="number text-uppercase">{{ $lorry->plat_number }}</div>
                                         </div>
-                                        <div class="nk-iv-wg3-subtitle">Available Balance</div>
+                                        <div class="nk-iv-wg3-subtitle">Registration Number</div>
                                     </div>
                                     <div class="nk-iv-wg3-sub">
                                         <div class="nk-iv-wg3-amount">
@@ -77,7 +77,7 @@
                                 <h6 class="title">Earnings <em class="icon ni ni-info"></em></h6>
                             </div>
                             <div class="nk-iv-wg2-text">
-                                <div class="nk-iv-wg2-amount"> {{ displayPrice($lorry->totalDebit()) }} <span class="change up"><span class="sign"></span>3.4%</span>
+                                <div class="nk-iv-wg2-amount"> {{ displayPrice($lorry->totalDebit()) }}
                                 </div>
                             </div>
                         </div>
@@ -93,7 +93,7 @@
                                 <h6 class="title">Expenses <em class="icon ni ni-info"></em></h6>
                             </div>
                             <div class="nk-iv-wg2-text">
-                                <div class="nk-iv-wg2-amount"> {{ displayPrice($lorry->totalCredit()) }} <span class="change up"><span class="sign"></span>0.0%</span>
+                                <div class="nk-iv-wg2-amount"> {{ displayPrice($lorry->totalCredit()) }}
                                 </div>
                             </div>
                         </div>
@@ -109,7 +109,7 @@
                                 <h6 class="title"> Next Service <em class="icon ni ni-info"></em></h6>
                             </div>
                             <div class="nk-iv-wg2-text">
-                                <div class="nk-iv-wg2-amount"> {{ ($lorry->latestServices)? $lorry->latestServices->next_service : "Not Set" }}
+                                <div class="nk-iv-wg2-amount"> {{ ($lorry->latestService)? $lorry->latestService->next_service : "Not Set" }}
                                     <span class="change up">
                                                     {{ ($lorry->latestServices)? $lorry->latestServices->mileage_next_service. " KM" : "Not Set" }}
                                     </span>
@@ -128,7 +128,7 @@
                                 <h6 class="title">Insurance Expire <em class="icon ni ni-info"></em></h6>
                             </div>
                             <div class="nk-iv-wg2-text">
-                                <div class="nk-iv-wg2-amount"> {{ ($lorry->latestInsurance)? $lorry->latestInsurance->expire_date : "Not Set" }} <span class="change up"><span class="sign"></span></span>
+                                <div class="nk-iv-wg2-amount"> {{ ($lorry->latestInsurance)? $lorry->latestInsurance->expire_date : "Not Set" }}
                                 </div>
                             </div>
                         </div>
@@ -144,7 +144,7 @@
                                 <h6 class="title"> Monthly Installment <em class="icon ni ni-info"></em></h6>
                             </div>
                             <div class="nk-iv-wg2-text">
-                                <div class="nk-iv-wg2-amount"> {{ displayPrice(1604.50) }} <span class="change up"> 24 Month Left</span>
+                                <div class="nk-iv-wg2-amount"> {{ displayPrice($lorry->installment_amount) }} <span class="change up"> {{ getInstallmentMonthBalance($lorry->loan_balance, $lorry->installment_amount) }} </span>
                                 </div>
                             </div>
                         </div>
@@ -165,7 +165,10 @@
                         <a class="nav-link" data-toggle="tab" href="#service">Service</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#repair">Repair & Mantainance</a>
+                        <a class="nav-link" data-toggle="tab" href="#repair">Repair & Maintenance</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#installment">Monthly Installment</a>
                     </li>
 
                 </ul>
@@ -245,6 +248,32 @@
                                             <a class="btn btn-primary btn-sm" href="{{ route('frontend.user.lorry.repair.edit', $repair->id) }}">Edit</a>
                                             <button href="#" class="delete btn btn-danger btn-sm" data-url="{{ route('frontend.user.lorry.repair.delete', $repair->id) }}" data-message="Are you sure want to delete this Repair & Maintenance Record?">Delete</button>
 
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </table>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="installment">
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Date</th>
+                                    <th>Amount</th>
+                                    <th>Remark</th>
+                                    <td></td>
+                                </tr>
+                                @foreach($lorry->installments() as $key => $installment)
+                                    <tr>
+                                        <td>{{ $key+1 }}</td>
+                                        <th>{{ $installment->date }}</th>
+                                        <td>{{ displayPrice($installment->amount) }}</td>
+                                        <td>{{ $installment->remark }}</td>
+                                        <td>
+                                            @if($installment->date == date('Y-m-1'))
+                                                <button href="#" class="delete btn btn-danger btn-sm" data-url="{{ route('frontend.user.lorry.installment.delete', $installment->id) }}" data-message="Are you sure want to delete this Installment Record?">Delete</button>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach

@@ -10,7 +10,7 @@ use App\Http\Controllers\Frontend\User\Lorry\ServiceController;
 use App\Http\Controllers\Frontend\User\Lorry\InsuranceController;
 use App\Http\Controllers\Frontend\User\Lorry\RepairController;
 use App\Http\Controllers\Frontend\User\NotificationController;
-
+use App\Http\Controllers\Frontend\User\Lorry\InstallmentController;
 
 Route::group(['as' => 'user.', 'middleware' => ['auth', 'password.expires', config('boilerplate.access.middleware.verified')]], function () {
     Route::get('dashboard', [DashboardController::class, 'index'])
@@ -71,6 +71,15 @@ Route::group(['as' => 'user.', 'middleware' => ['auth', 'password.expires', conf
             Route::get('edit/{id}', [RepairController::class, 'edit'])->name('edit');
             Route::post('edit/{id}', [RepairController::class, 'update'])->name('update');
             Route::get('delete/{id}', [RepairController::class, 'delete'])->name('delete');
+        });
+
+        Route::group(['prefix' => 'installment/', 'as' => 'installment.'], function (){
+
+            Route::get('list', [InstallmentController::class, 'index'])->name('index');
+            Route::get('view/{date}', [InstallmentController::class, 'view'])->name('view');
+            Route::get('create/', [InstallmentController::class, 'create'])->name('create');
+            Route::post('create/', [InstallmentController::class, 'insert'])->name('insert');
+            Route::get('delete/{id}', [InstallmentController::class, 'delete'])->name('delete');
         });
 
     });

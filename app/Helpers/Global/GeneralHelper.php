@@ -215,3 +215,18 @@ if(!function_exists('reformatDateTime')){
     }
 
 }
+
+if(!function_exists('getInstallmentMonthBalance')){
+
+    function getInstallmentMonthBalance($loan_balance, $installment_amount){
+
+        if($loan_balance != 0 && $installment_amount != 0){
+
+            return  (int)($loan_balance/$installment_amount)." Month(s) Left";
+        }else{
+            return "Fully Paid";
+        }
+
+    }
+
+}

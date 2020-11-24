@@ -64,6 +64,9 @@
                                     <li class="nk-menu-item">
                                         <a href="{{ route('frontend.user.lorry.repair.index') }}" class="nk-menu-link"><span class="nk-menu-text">Repair</span></a>
                                     </li>
+                                    <li class="nk-menu-item">
+                                        <a href="{{ route('frontend.user.lorry.installment.index') }}" class="nk-menu-link"><span class="nk-menu-text">Monthly Installment</span></a>
+                                    </li>
                                 </ul><!-- .nk-menu-sub -->
                             </li><!-- .nk-menu-item -->
                             <li class="nk-menu-item">

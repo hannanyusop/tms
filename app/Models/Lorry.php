@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Lorry extends Model{
 
+    protected $fillable = [
+        'loan_balance'
+    ];
+
     protected $table = 'lorries';
 
     public function latestInsurance(){
@@ -35,6 +39,16 @@ class Lorry extends Model{
 
     public function repairs(){
         return $this->hasMany(LorryRepair::class, 'lorry_id', 'id')
+            ->orderBy('id', 'DESC')->get();
+    }
+
+    public function latestInstallment(){
+        return $this->hasOne(LorryInstallment::class, 'lorry_id', 'id')
+            ->orderBy('id', 'DESC');
+    }
+
+    public function installments(){
+        return $this->hasMany(LorryInstallment::class, 'lorry_id', 'id')
             ->orderBy('id', 'DESC')->get();
     }
 

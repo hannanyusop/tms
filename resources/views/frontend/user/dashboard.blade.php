@@ -55,7 +55,7 @@
                 </div><!-- .card -->
             </div><!-- .col -->
             <div class="col-lg-4">
-                <div class="card card-bordered h-100">
+                <div class="card card-bordered ">
                     <div class="card-inner">
                         <div class="card-title-group align-start mb-2">
                             <div class="card-title">
@@ -74,7 +74,21 @@
                             </ul>
                         </div><!-- .nk-coin-ovwg -->
                     </div><!-- .card-inner -->
-                </div><!-- .card -->
+                </div>
+
+                <div class="card text-white bg-secondary">
+                    <div class="card-inner text-center">
+                        <h5 class="card-title">Monthly Installment</h5>
+                        <h6 class="card-text"><b class="text-warning">{{ $data['installment_unpaid'] }} Unpaid</b> | <b class="text-success">{{ $data['installment_paid'] }} Paid</b></h6>
+
+                        @if($data['installment_unpaid'] > 0)
+                            <div class=" float-center mb-2">
+                                <a href="{{ route('frontend.user.lorry.installment.create') }}" class="btn btn-success">Create Installment for {{ date('M Y') }}</a>
+                            </div>
+                        @endif
+
+                    </div>
+                </div>
             </div><!-- .col -->
             <div class="col-lg-8">
                 <div class="card card-bordered card-full">

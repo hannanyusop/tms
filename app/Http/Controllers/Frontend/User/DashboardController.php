@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Lorry;
+use App\Models\LorryInstallment;
 use App\Models\LorryRepair;
 use App\Models\LorryService;
 use App\Models\LorryTransaction;
@@ -42,6 +43,11 @@ class DashboardController extends Controller
 //            'income' => LorryTransaction::whereBetween('created_at', [Carbon::today(), $past15])->sum('debit'),
         ];
 
+        $paid = LorryInstallment::whereDate('date', date('Y-m-1'))->pluck('lorry_id');
+        $unpaid = Lorry::where('loan_balance', '>', 0)
+            ->whereNotIn('id', $paid)
+            ->get();
+
         $data = [
             'total_lorry' => Lorry::count(),
             'active_lorry' => Lorry::count(),
@@ -51,7 +57,9 @@ class DashboardController extends Controller
             'exp_15' => $exp_15,
             'inc_15' => $inc_15,
             'transactions' => LorryTransaction::orderBy('created_at', 'ASC')->limit(15)->get(),
-            'graph' => $graph
+            'graph' => $graph,
+            'installment_paid' => $paid->count(),
+            'installment_unpaid' => $unpaid->count()
         ];
 
 
