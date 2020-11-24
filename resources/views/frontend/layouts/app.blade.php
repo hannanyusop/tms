@@ -70,12 +70,35 @@
                                 </ul><!-- .nk-menu-sub -->
                             </li><!-- .nk-menu-item -->
                             <li class="nk-menu-item">
+                                <a href="{{ route('frontend.user.transaction.index') }}" class="nk-menu-link">
+                                    <span class="nk-menu-icon"><em class="icon ni ni-trend-up"></em></span>
+                                    <span class="nk-menu-text">Transaction</span>
+                                </a>
+                            </li><!-- .nk-menu-item -->
+                            <li class="nk-menu-item">
                                 <a href="{{ route('frontend.user.notification.tutorial') }}" class="nk-menu-link">
                                     <span class="nk-menu-icon"><em class="icon ni ni-bell"></em></span>
                                     <span class="nk-menu-text">Get Notify</span>
                                 </a>
                             </li><!-- .nk-menu-item -->
                         </ul><!-- .nk-menu -->
+
+                        <ul class="nk-menu nk-menu-sm">
+                            <!-- Menu -->
+                            <li class="nk-menu-heading">
+                                <span>Help Center</span>
+                            </li>
+                            <li class="nk-menu-item">
+                                <a href="{{ route('frontend.user.faq.main') }}" class="nk-menu-link" data-original-title="" title="">
+                                    <span class="nk-menu-text">FAQs</span>
+                                </a>
+                            </li>
+                            <li class="nk-menu-item">
+                                <a href="#" class="nk-menu-link" data-original-title="" title="">
+                                    <span class="nk-menu-text">Contact</span>
+                                </a>
+                            </li>
+                        </ul>
                     </div><!-- .nk-sidebar-menu -->
                 </div><!-- .nk-sidebar-content -->
             </div><!-- .nk-sidebar-element -->

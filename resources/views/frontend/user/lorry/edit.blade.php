@@ -137,7 +137,7 @@
                                     <div class="row g-3 align-center">
                                         <div class="col-lg-5">
                                             <div class="form-group">
-                                                <label class="form-label" for="market_price">Market Balance (RM)</label>
+                                                <label class="form-label" for="market_price">Market Price (RM)</label>
                                                 <span class="form-note">Required | Min : 0</span>
                                             </div>
                                         </div>

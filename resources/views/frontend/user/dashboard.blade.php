@@ -95,7 +95,7 @@
                     <div class="card-inner">
                         <div class="card-title-group">
                             <div class="card-title">
-                                <h6 class="title"><span class="mr-2">Latest Transaction</span> <a href="#" class="link d-none d-sm-inline">See History</a></h6>
+                                <h6 class="title"><span class="mr-2">Latest Transaction</span></h6>
                             </div>
                         </div>
                     </div><!-- .card-inner -->
@@ -129,9 +129,6 @@
                                 </div>
                             @endforeach
                         </div>
-                    </div><!-- .card-inner -->
-                    <div class="card-inner-sm border-top text-center d-sm-none">
-                        <a href="#" class="btn btn-link btn-block">See History</a>
                     </div><!-- .card-inner -->
                 </div><!-- .card -->
             </div><!-- .col -->

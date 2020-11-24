@@ -11,6 +11,7 @@ use App\Http\Controllers\Frontend\User\Lorry\InsuranceController;
 use App\Http\Controllers\Frontend\User\Lorry\RepairController;
 use App\Http\Controllers\Frontend\User\NotificationController;
 use App\Http\Controllers\Frontend\User\Lorry\InstallmentController;
+use App\Http\Controllers\Frontend\User\TransactionController;
 
 Route::group(['as' => 'user.', 'middleware' => ['auth', 'password.expires', config('boilerplate.access.middleware.verified')]], function () {
     Route::get('dashboard', [DashboardController::class, 'index'])
@@ -88,7 +89,18 @@ Route::group(['as' => 'user.', 'middleware' => ['auth', 'password.expires', conf
 
         Route::get('tutorial', [NotificationController::class, 'tutorial'])->name('tutorial');
         Route::get('testing', [NotificationController::class, 'testing'])->name('testing');
+    });
 
+    Route::group(['prefix' => 'transaction/', 'as' => 'transaction.'], function (){
+
+        Route::get('list/{lorry_id?}', [TransactionController::class, 'index'])->name('index');
+    });
+
+    Route::group(['prefix' => 'faq/', 'as' => 'faq.'], function (){
+
+        Route::get('main', function (){
+            return view('frontend.user.faq.main');
+        })->name('main');
 
     });
 

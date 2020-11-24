@@ -77,7 +77,7 @@
                                                     <li><a href="{{ route('frontend.user.lorry.repair.create', $lorry->id) }}"><em class="icon ni ni-setting"></em><span>Repair</span></a></li>
                                                     <li><a href="{{ route('frontend.user.lorry.service.create', $lorry->id) }}"><em class="icon ni ni-done"></em><span>Service</span></a></li>
                                                     <li><a href="{{ route('frontend.user.lorry.service.create', $lorry->id) }}"><em class="icon ni ni-shield-check"></em><span>Renew Insurance</span></a></li>
-                                                    <li><a href="#"><em class="icon ni ni-repeat"></em><span>Transaction</span></a></li>
+                                                    <li><a href="{{ route('frontend.user.transaction.index', $lorry->id) }}"><em class="icon ni ni-repeat"></em><span>Transaction</span></a></li>
                                                     <li class="divider"></li>
                                                     <li><a href="#"><em class="icon ni ni-trash"></em><span>Delete</span></a></li>
                                                 </ul>
