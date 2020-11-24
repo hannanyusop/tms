@@ -43,11 +43,11 @@
              return redirect()->route('frontend.user.lorry.installment.index')->withFlashSuccess('No installment record inserted!');
          }
 
+         $total = 0;
+
          foreach ($request->amount as $lorry_id => $amount){
 
              $lorry = Lorry::find($lorry_id);
-
-             $total = 0;
 
              if($lorry){
 
@@ -58,8 +58,6 @@
                          ->first();
 
                      if(!$installment){
-
-                         $amount = $request->amount[$lorry_id];
 
                          $installment = new LorryInstallment();
                          $installment->lorry_id = $lorry_id;
@@ -80,9 +78,8 @@
                  }
              }
 
-             return redirect()->route('frontend.user.lorry.installment.index')->withFlashSuccess($total. ' installment record inserted!');
          }
-
+         return redirect()->route('frontend.user.lorry.installment.index')->withFlashSuccess($total. ' installment record inserted!');
      }
 
      public function view($date){
