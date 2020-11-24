@@ -20,7 +20,7 @@ class TransactionController extends Controller
             $query->where('lorry_id', $lorry_id);
         }
 
-        $transactions = $query->paginate(20);
+        $transactions = $query->orderBy('created_at', 'DESC')->paginate(20);
 
 
         return view('frontend.user.transaction.index', compact('transactions'));

@@ -56,7 +56,7 @@ class DashboardController extends Controller
             'date_15' => $date_15,
             'exp_15' => $exp_15,
             'inc_15' => $inc_15,
-            'transactions' => LorryTransaction::orderBy('created_at', 'ASC')->limit(15)->get(),
+            'transactions' => LorryTransaction::orderBy('created_at', 'DESC')->limit(15)->get(),
             'graph' => $graph,
             'installment_paid' => $paid->count(),
             'installment_unpaid' => $unpaid->count()
