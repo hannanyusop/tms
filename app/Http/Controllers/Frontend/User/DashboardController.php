@@ -51,7 +51,7 @@ class DashboardController extends Controller
         $data = [
             'total_lorry' => Lorry::count(),
             'active_lorry' => Lorry::count(),
-            'upcoming_service' => LorryService::orderBy('next_service', 'DESC')->limit(3)->get(),
+            'upcoming_service' => LorryService::where('is_read', 0)->orderBy('next_service', 'DESC')->limit(3)->get(),
             'recent_repair' => LorryRepair::orderBy('id', 'DESC')->limit(5)->get(),
             'date_15' => $date_15,
             'exp_15' => $exp_15,

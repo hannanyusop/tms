@@ -113,4 +113,23 @@
 
          }
      }
+
+     public function mute($id){
+
+         $insurance = LorryInsurance::where('is_read', 0)->findOrFail($id);
+         $insurance->is_read = 1;
+         $insurance->save();
+
+         return redirect()->back()->withFlashSuccess('Insurance notification muted!');
+     }
+
+     public function unmute($id){
+
+         $insurance = LorryInsurance::where('is_read', 1)->findOrFail($id);
+         $insurance->is_read = 0;
+         $insurance->save();
+
+         return redirect()->back()->withFlashSuccess('Insurance notification unmute!');
+
+     }
  }

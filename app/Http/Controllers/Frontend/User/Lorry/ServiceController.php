@@ -138,6 +138,83 @@
 
      }
 
+     public function insertItem(Request $request, $id){
+
+         $request->validate([
+             'name' => 'required|max:50',
+             'description' => 'max:2000',
+             'qty' => 'required|numeric|min:1',
+             'price' => 'required|numeric|min:0',
+         ]);
+
+         $item = new ServiceItem();
+         $item->lorry_service_id = $id;
+         $item->name = $request->name;
+         $item->description = $request->description;
+         $item->qty = $request->qty;
+         $item->total_price = $request->price*$request->qty;
+         $item->save();
+
+         $service_amount = ServiceItem::where('lorry_service_id', $id)->sum('total_price');
+         $item->service->update(['amount' => $service_amount]);
+         updateTransaction($item->service->lorry_id, 'service', $item->service->id,'', 0.00, $service_amount);
+
+         return redirect()->route('frontend.user.lorry.service.edit', $id)->withFlashSuccess('Service item inserted!');
+     }
+
+     public function updateItem(Request $request, $id, $item_id){
+
+         $item = ServiceItem::where([
+             'lorry_service_id' => $id,
+             'id' => $item_id
+         ])->firstOrFail();
+
+         $request->validate([
+             'name' => 'required|max:50',
+             'description' => 'max:2000',
+             'qty' => 'required|numeric|min:1',
+             'price' => 'required|numeric|min:0',
+         ]);
+
+         $item->name = $request->name;
+         $item->description = $request->description;
+         $item->qty = $request->qty;
+         $item->total_price = $request->price*$request->qty;
+         $item->save();
+
+         $service_amount = ServiceItem::where('lorry_service_id', $id)->sum('total_price');
+         $item->service->update(['amount' => $service_amount]);
+         updateTransaction($item->service->lorry_id, 'service', $item->service->id,'', 0.00, $service_amount);
+
+         return redirect()->route('frontend.user.lorry.service.edit', $id)->withFlashSuccess('Service item updated!');
+
+     }
+
+     public function deleteItem($id, $item_id){
+
+         $item = ServiceItem::where([
+             'lorry_service_id' => $id,
+             'id' => $item_id
+         ])->firstOrFail();
+
+
+         if($item->delete()){
+             $service_amount = ServiceItem::where('lorry_service_id', $id)->sum('total_price');
+
+             $item->service->update(['amount' => $service_amount]);
+
+             updateTransaction($item->service->lorry_id, 'service', $item->service->id,'', 0.00, $service_amount);
+
+             return redirect()->route('frontend.user.lorry.service.edit', $id)->withFlashSuccess('Item removed from list!');
+         }else{
+
+             return redirect()->route('frontend.user.lorry.service.edit', $id)->withFlashError('Failed to removed item from list!');
+         }
+
+
+     }
+
+
      public function delete(Request $request, $id){
 
          if($request->ajax()){
@@ -156,4 +233,25 @@
              return response()->json(['error' => false, 'message' => "Invalid method!"]);
          }
      }
+
+     public function mute($id){
+
+         $service = LorryService::where('is_read', 0)->findOrFail($id);
+         $service->is_read = 1;
+         $service->save();
+
+         return redirect()->back()->withFlashSuccess('Service muted!');
+
+     }
+
+     public function unmute($id){
+
+         $service = LorryService::where('is_read', 1)->findOrFail($id);
+         $service->is_read = 0;
+         $service->save();
+
+         return redirect()->back()->withFlashSuccess('Service unmute!');
+
+     }
+
  }

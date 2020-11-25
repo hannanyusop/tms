@@ -102,32 +102,90 @@
              'documents' => '',
          ]);
 
-         foreach ($request->items as $key => $data){
-
-             $item = RepairItem::where('service_id', $repair->id)
-                 ->where('id', $id)
-                 ->first();
-
-             if($item){
-                 $item->lorry_repair_id = $repair->id;
-                 $item->name = $item['name'];
-                 $item->remark = $item['remark'];
-                 $item->qty = $item['qty'];
-                 $item->total_price = $item['total_price'];
-                 $item->save();
-             }
-         }
-
          $repair->payment_method = $request->payment_method;
          $repair->payment_reference = $request->payment_reference;
          $repair->payment_recepit = $request->payment_recepit;
-         $repair->amount = RepairItem::where('repair_id', $repair->id)->sum('total_price');
          $repair->remark = $request->remark;
          $repair->documents = $request->documents; #TODO: upload
          $repair->save();
 
-         updateTransaction($repair->lorry_id, 'repair', $repair->id,'', 0.00, $repair->amount);
-         return redirect()->route('frontend.user.lorry.view', $request->lorry_id)->withFlashSuccess('Repair & Maintenance record updated!');
+         return redirect()->route('frontend.user.lorry.view', $request->lorry_id)->withFlashSuccess('Repair record updated!');
+     }
+
+     public function insertItem(Request $request, $id){
+
+         $request->validate([
+             'name' => 'required|max:50',
+             'description' => 'max:2000',
+             'qty' => 'required|numeric|min:1',
+             'price' => 'required|numeric|min:0',
+         ]);
+
+         $item = new RepairItem();
+         $item->lorry_repair_id = $id;
+         $item->name = $request->name;
+         $item->description = $request->description;
+         $item->qty = $request->qty;
+         $item->total_price = $request->price*$request->qty;
+         $item->save();
+
+         $repair_amount = RepairItem::where('lorry_repair_id', $id)->sum('total_price');
+         $item->repair->update(['amount' => $repair_amount]);
+         updateTransaction($item->repair->lorry_id, 'repair', $item->repair->id,'', 0.00, $repair_amount);
+
+         return redirect()->route('frontend.user.lorry.repair.edit', $id)->withFlashSuccess('Repair item inserted!');
+     }
+
+     public function updateItem(Request $request, $id, $item_id){
+
+         $item = RepairItem::where([
+             'lorry_repair_id' => $id,
+             'id' => $item_id
+         ])->firstOrFail();
+
+         $request->validate([
+             'name' => 'required|max:50',
+             'description' => 'max:2000',
+             'qty' => 'required|numeric|min:1',
+             'price' => 'required|numeric|min:0',
+         ]);
+
+         $item->name = $request->name;
+         $item->description = $request->description;
+         $item->qty = $request->qty;
+         $item->total_price = $request->price*$request->qty;
+         $item->save();
+
+         $repair_amount = RepairItem::where('lorry_repair_id', $id)->sum('total_price');
+         $item->repair->update(['amount' => $repair_amount]);
+         updateTransaction($item->repair->lorry_id, 'repair', $item->repair->id,'', 0.00, $repair_amount);
+
+         return redirect()->route('frontend.user.lorry.repair.edit', $id)->withFlashSuccess('Repair item updated!');
+
+     }
+
+     public function deleteItem($id, $item_id){
+
+         $item = RepairItem::where([
+             'lorry_repair_id' => $id,
+             'id' => $item_id
+         ])->firstOrFail();
+
+
+         if($item->delete()){
+             $repair_amount = RepairItem::where('lorry_repair_id', $id)->sum('total_price');
+
+             $item->repair->update(['amount' => $repair_amount]);
+
+             updateTransaction($item->repair->lorry_id, 'repair', $item->repair->id,'', 0.00, $repair_amount);
+
+             return redirect()->route('frontend.user.lorry.repair.edit', $id)->withFlashSuccess('Item removed from list!');
+         }else{
+
+             return redirect()->route('frontend.user.lorry.repair.edit', $id)->withFlashError('Failed to removed item from list!');
+         }
+
+
      }
 
      public function delete(Request  $request, $id){

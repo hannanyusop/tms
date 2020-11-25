@@ -494,25 +494,6 @@
             });
 
 
-
-            var supportStatus = {
-                labels: ["Bitcoin", "Ethereum", "NioCoin", "Feature Request", "Bug Fix"],
-                stacked: true,
-                datasets: [{
-                    label: "Solved",
-                    color: ["#f98c45", "#9cabff", "#8feac5", "#6b79c8", "#79f1dc"],
-                    data: [0, 74, 92, 142, 189]
-                }, {
-                    label: "Open",
-                    color: [NioApp.hexRGB('#f98c45', .4), NioApp.hexRGB('#9cabff', .4), NioApp.hexRGB('#8feac5', .4), NioApp.hexRGB('#6b79c8', .4), NioApp.hexRGB('#79f1dc', .4)],
-                    data: [0, 74, 92, 32, 26]
-                }, {
-                    label: "Pending",
-                    color: [NioApp.hexRGB('#f98c45', .2), NioApp.hexRGB('#9cabff', .2), NioApp.hexRGB('#8feac5', .2), NioApp.hexRGB('#6b79c8', .2), NioApp.hexRGB('#79f1dc', .2)],
-                    data: [0, 74, 92, 21, 9]
-                }]
-            };
-
             function supportStatusChart(selector, set_data) {
                 var $selector = selector ? $(selector) : $('.support-status-chart');
                 $selector.each(function () {

@@ -18,7 +18,7 @@
                         <th class="nk-tb-col tb-col-mb"><span class="sub-text">Amount</span></th>
                         <th class="nk-tb-col tb-col-md"><span class="sub-text">Next Service</span></th>
                         <th class="nk-tb-col tb-col-lg"><span class="sub-text">Next Service(KM)</span></th>
-                        <th class="nk-tb-col tb-col-md"><span class="sub-text">Status</span></th>
+                        <th class="nk-tb-col tb-col-md"><span class="sub-text">Notifcation</span></th>
                         <th class="nk-tb-col nk-tb-col-tools text-right">
                         </th>
                     </tr>
@@ -56,14 +56,21 @@
                                         <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
                                         <div class="dropdown-menu dropdown-menu-right">
                                             <ul class="link-list-opt no-bdr">
-                                                <li><a href="#"><em class="icon ni ni-focus"></em><span>Quick View</span></a></li>
-                                                <li><a target="_blank" href="{{ route('frontend.user.lorry.service.view', $service->id) }}"><em class="icon ni ni-eye"></em><span>View Details</span></a></li>
-                                                <li><a href="#"><em class="icon ni ni-repeat"></em><span>Transaction</span></a></li>
-                                                <li><a href="#"><em class="icon ni ni-activity-round"></em><span>Activities</span></a></li>
-                                                <li class="divider"></li>
-                                                <li><a href="#"><em class="icon ni ni-shield-star"></em><span>Reset Pass</span></a></li>
-                                                <li><a href="#"><em class="icon ni ni-shield-off"></em><span>Reset 2FA</span></a></li>
-                                                <li><a href="#"><em class="icon ni ni-na"></em><span>Suspend User</span></a></li>
+                                                <li><a href="{{ route('frontend.user.lorry.service.view', $service->id) }}"><em class="icon ni ni-eye"></em><span>View Details</span></a></li>
+                                                <li><a href="{{ route('frontend.user.lorry.service.edit', $service->id) }}"><em class="icon ni ni-edit"></em><span>Edit</span></a></li>
+                                                @if($service->is_read == 0)
+                                                    <li>
+                                                        <a onclick="return confirm('Are you user want to mute this service?')" href="{{ route('frontend.user.lorry.service.mute', $service->id) }}"><em class="icon ni ni-bell-off">
+                                                            </em><span>Mute</span>
+                                                        </a>
+                                                    </li>
+                                                @else
+                                                    <li>
+                                                        <a onclick="return confirm('Are you user want to unmute this service?')" href="{{ route('frontend.user.lorry.service.unmute', $service->id) }}"><em class="icon ni ni-bell">
+                                                            </em><span>Unmute</span>
+                                                        </a>
+                                                    </li>
+                                                @endif
                                             </ul>
                                         </div>
                                     </div>

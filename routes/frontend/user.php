@@ -50,6 +50,9 @@ Route::group(['as' => 'user.', 'middleware' => ['auth', 'password.expires', conf
             Route::get('edit/{id}', [InsuranceController::class, 'edit'])->name('edit');
             Route::post('edit/{id}', [InsuranceController::class, 'update'])->name('update');
             Route::get('delete/{id}', [InsuranceController::class, 'delete'])->name('delete');
+
+            Route::get('mute/{id}', [InsuranceController::class, 'mute'])->name('mute');
+            Route::get('unmute/{id}', [InsuranceController::class, 'unmute'])->name('unmute');
         });
 
         Route::group(['prefix' => 'service/', 'as' => 'service.'], function (){
@@ -60,7 +63,14 @@ Route::group(['as' => 'user.', 'middleware' => ['auth', 'password.expires', conf
             Route::post('create/{lorry_id}', [ServiceController::class, 'insert'])->name('insert');
             Route::get('edit/{id}', [ServiceController::class, 'edit'])->name('edit');
             Route::post('edit/{id}', [ServiceController::class, 'update'])->name('update');
+
+            Route::post('insert-item/{id}', [ServiceController::class, 'insertItem'])->name('insert-item');
+            Route::post('update-item/{id}/{item_id}', [ServiceController::class, 'updateItem'])->name('update-item');
+            Route::get('delete-item/{id}/{item_id}', [ServiceController::class, 'deleteItem'])->name('delete-item');
+
             Route::get('delete/{id}', [ServiceController::class, 'delete'])->name('delete');
+            Route::get('mute/{id}', [ServiceController::class, 'mute'])->name('mute');
+            Route::get('unmute/{id}', [ServiceController::class, 'unmute'])->name('unmute');
         });
 
         Route::group(['prefix' => 'repair/', 'as' => 'repair.'], function (){
@@ -71,6 +81,10 @@ Route::group(['as' => 'user.', 'middleware' => ['auth', 'password.expires', conf
             Route::post('create/{lorry_id}', [RepairController::class, 'insert'])->name('insert');
             Route::get('edit/{id}', [RepairController::class, 'edit'])->name('edit');
             Route::post('edit/{id}', [RepairController::class, 'update'])->name('update');
+
+            Route::post('insert-item/{id}', [RepairController::class, 'insertItem'])->name('insert-item');
+            Route::post('update-item/{id}/{item_id}', [RepairController::class, 'updateItem'])->name('update-item');
+            Route::get('delete-item/{id}/{item_id}', [RepairController::class, 'deleteItem'])->name('delete-item');
             Route::get('delete/{id}', [RepairController::class, 'delete'])->name('delete');
         });
 

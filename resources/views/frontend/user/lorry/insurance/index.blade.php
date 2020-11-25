@@ -52,13 +52,21 @@
                                         <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
                                         <div class="dropdown-menu dropdown-menu-right">
                                             <ul class="link-list-opt no-bdr">
-                                                <li><a target="_blank" href="{{ route('frontend.user.lorry.insurance.view', $insurance->id) }}"><em class="icon ni ni-eye"></em><span>View Details</span></a></li>
-                                                <li><a href="#"><em class="icon ni ni-repeat"></em><span>Transaction</span></a></li>
-                                                <li><a href="#"><em class="icon ni ni-activity-round"></em><span>Activities</span></a></li>
-                                                <li class="divider"></li>
-                                                <li><a href="#"><em class="icon ni ni-shield-star"></em><span>Reset Pass</span></a></li>
-                                                <li><a href="#"><em class="icon ni ni-shield-off"></em><span>Reset 2FA</span></a></li>
-                                                <li><a href="#"><em class="icon ni ni-na"></em><span>Suspend User</span></a></li>
+                                                <li><a href="{{ route('frontend.user.lorry.insurance.view', $insurance->id) }}"><em class="icon ni ni-eye"></em><span>View Details</span></a></li>
+                                                <li><a href="{{ route('frontend.user.lorry.insurance.edit', $insurance->id) }}"><em class="icon ni ni-edit"></em><span>Edit</span></a></li>
+                                                @if($insurance->is_read == 0)
+                                                    <li>
+                                                        <a onclick="return confirm('Are you user want to mute this service?')" href="{{ route('frontend.user.lorry.insurance.mute', $insurance->id) }}"><em class="icon ni ni-bell-off">
+                                                            </em><span>Mute</span>
+                                                        </a>
+                                                    </li>
+                                                @else
+                                                    <li>
+                                                        <a onclick="return confirm('Are you user want to unmute this service?')" href="{{ route('frontend.user.lorry.insurance.unmute', $insurance->id) }}"><em class="icon ni ni-bell">
+                                                            </em><span>Unmute</span>
+                                                        </a>
+                                                    </li>
+                                                @endif
                                             </ul>
                                         </div>
                                     </div>

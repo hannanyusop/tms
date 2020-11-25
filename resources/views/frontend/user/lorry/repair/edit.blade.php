@@ -1,12 +1,12 @@
 @extends('frontend.layouts.app')
 
-@section('title', __('Edit Service Record #').$service->id)
+@section('title', __('Edit Repair Record #').$repair->id)
 
 
 @php
     $links = [
     'Lorry' => route('frontend.user.lorry.index'),
-    $service->lorry->model => route('frontend.user.lorry.view', $service->lorry->id),
+    $repair->lorry->model => route('frontend.user.lorry.view', $repair->lorry->id),
 ];
 @endphp
 
@@ -14,7 +14,7 @@
     <div class="nk-block nk-block-lg col-md-12">
         <div class="card card-bordered">
             <div class="card-inner">
-                <x-forms.post :action="route('frontend.user.lorry.service.insert', $service->id)" class="gy-3">
+                <x-forms.post :action="route('frontend.user.lorry.repair.insert', $repair->id)" class="gy-3">
                     <div class="row g-3 align-center">
                         <div class="col-lg-5">
                             <div class="form-group">
@@ -25,59 +25,14 @@
                         <div class="col-lg-7">
                             <div class="form-group">
                                 <div class="form-control-wrap">
-                                    <input class="form-control text-uppercase" type="text" id="plat_number" name="plat_number" value="{{ $service->lorry->plat_number }}" readonly>
+                                    <input class="form-control text-uppercase" type="text" id="plat_number" name="plat_number" value="{{ $repair->lorry->plat_number }}" readonly>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <hr><h5>Service Information</h5>
-                    <div class="row g-3 align-center">
-                        <div class="col-lg-5">
-                            <div class="form-group">
-                                <label class="form-label" for="next_service">{{ __('Next Service') }}<i class="text-danger">*</i></label>
-                                <span class="form-note">Required</span>
-                            </div>
-                        </div>
-                        <div class="col-lg-3">
-                            <div class="form-group">
-                                <div class="form-control-wrap">
-                                    <input class="form-control date-picker" data-date-format="yyyy-mm-dd" type="text" data-language="en" aria-describedby="basic-addon2" name="next_service" id="next_service" value="{{ old('next_service')? old('next_service') : $service->next_service }}" required>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <hr><h5>Repair Information</h5>
 
-                    <div class="row g-3 align-center">
-                        <div class="col-lg-5">
-                            <div class="form-group">
-                                <label class="form-label" for="mileage">{{ __('Current Mileage') }} (ODO Meter)<i class="text-danger">*</i></label>
-                                <span class="form-note">Required | Use "0" for broken ODO meter</span>
-                            </div>
-                        </div>
-                        <div class="col-lg-3">
-                            <div class="form-group">
-                                <div class="form-control-wrap">
-                                    <input class="form-control digits" type="number" name="mileage" id="mileage" value="{{ old('mileage')? old('mileage') : $service->mileage  }}" required>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="row g-3 align-center">
-                        <div class="col-lg-5">
-                            <div class="form-group">
-                                <label class="form-label" for="mileage_next_service">{{ __('Next Service Mileage') }} (ODO Meter)<i class="text-danger">*</i></label>
-                                <span class="form-note">Required | Use "0" for broken ODO meter</span>
-                            </div>
-                        </div>
-                        <div class="col-lg-3">
-                            <div class="form-group">
-                                <div class="form-control-wrap">
-                                    <input class="form-control digits" type="number" name="mileage_next_service" id="mileage_next_service" value="{{ old('mileage_next_service')? old('mileage_next_service') : $service->mileage_next_service }}" required>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <div class="row g-3 align-center">
                         <div class="col-lg-5">
                             <div class="form-group">
@@ -90,7 +45,7 @@
                                 <div class="form-control-wrap">
                                     <select name="payment_method" id="payment_method" class="form-select form-control form-control-lg" required>
                                         @foreach(paymentMethod() as $key => $method)
-                                            <option value="{{ $key }}" {{ (old('payment_method') == $key)? "selected" : ($service->payment_method == $key)? "selected" : "" }}>{{ $method }}</option>
+                                            <option value="{{ $key }}" {{ (old('payment_method') == $key)? "selected" : ($repair->payment_method == $key)? "selected" : "" }}>{{ $method }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -108,7 +63,7 @@
                         <div class="col-lg-7">
                             <div class="form-group">
                                 <div class="form-control-wrap">
-                                    <input class="form-control" type="text" name="payment_reference" id="payment_reference" value="{{ old('payment_reference')? old('payment_reference') : $service->payment_reference }}">
+                                    <input class="form-control" type="text" name="payment_reference" id="payment_reference" value="{{ old('payment_reference')? old('payment_reference') : $repair->payment_reference }}">
                                 </div>
                             </div>
                         </div>
@@ -138,12 +93,12 @@
                         <div class="col-lg-7">
                             <div class="form-group">
                                 <div class="form-control-wrap">
-                                    <textarea name="remark" id="remark" class="form-control" rows="5">{{ old('remark') ? old('remark') : $service->remark }}</textarea>
+                                    <textarea name="remark" id="remark" class="form-control" rows="5">{{ old('remark') ? old('remark') : $repair->remark }}</textarea>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <button class="btn btn-primary pull-right mt-5" type="submit">Save Service Information</button>
+                    <button class="btn btn-primary pull-right mt-5" type="submit">Save Repair Information</button>
 
                 </x-forms.post>
             </div>
@@ -160,10 +115,11 @@
                                     <th>Remark</th>
                                     <th>Quantity</th>
                                     <th>Price</th>
+                                    <th>T. Price</th>
                                     <th data-attr-ignore>Remove</th>
                                 </tr>
-                                @foreach($service->items as $item)
-                                    <x-forms.post :action="route('frontend.user.lorry.service.update-item', [$service->id, $item->id])" class="gy-3">
+                                @foreach($repair->items as $item)
+                                    <x-forms.post :action="route('frontend.user.lorry.repair.update-item', [$repair->id, $item->id])" class="gy-3">
                                         <tr>
                                             <td><input type="text" class="form-control" name="name" value="{{ $item->name }}" required></td>
                                             <td><input type="text" class="form-control" name="description" value="{{ $item->description }}"></td>
@@ -171,12 +127,12 @@
                                             <td><input type="number" step="1" class="form-control" value="{{ $item->total_price/$item->qty }}" name="price"></td>
                                             <td class="text-center">
                                                 <button type="submit" class="btn btn-primary btn-sm">Update</button>
-                                                <a onclick="return confirm('Are you sure want to remove this item from list?')" href="{{ route('frontend.user.lorry.service.delete-item', [$service->id, $item->id]) }}" class="btn btn-danger btn-sm">Remove</a>
+                                                <a onclick="return confirm('Are you sure want to remove this item from list?')" href="{{ route('frontend.user.lorry.repair.delete-item', [$repair->id, $item->id]) }}" class="btn btn-danger btn-sm">Remove</a>
                                             </td>
                                         </tr>
                                     </x-forms.post>
                                 @endforeach
-                                <x-forms.post :action="route('frontend.user.lorry.service.insert-item', $service->id)" class="gy-3">
+                                <x-forms.post :action="route('frontend.user.lorry.repair.insert-item', $repair->id)" class="gy-3">
                                 <tr>
                                         <td><input type="text" class="form-control" name="name" value="{{ old('name') }}" required></td>
                                         <td><input class="form-control" name="description" value="{{ old('description') }}"> </td>
@@ -193,7 +149,7 @@
                                     <td></td>
                                     <td></td>
                                     <td class="text-center">
-                                       <h5> {{ displayPrice($service->amount) }}</h5>
+                                       <h5> {{ displayPrice($repair->amount) }}</h5>
                                     </td>
                                     <td>
 
@@ -203,7 +159,7 @@
                         </div>
                     </div>
 
-                    <a href="{{ route('frontend.user.lorry.view', $service->lorry->id) }}" class="btn btn-warning pull-right mt-5" type="submit">Back</a>
+                    <a href="{{ route('frontend.user.lorry.view', $repair->lorry->id) }}" class="btn btn-warning pull-right mt-5" type="submit">Back</a>
             </div>
         </div><!-- card -->
 
