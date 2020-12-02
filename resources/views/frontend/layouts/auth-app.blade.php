@@ -14,6 +14,39 @@
     <link rel="stylesheet" href="{{ asset('assets/css/dashlite.css') }}?ver=1.4.0">
     <link id="skin-default" rel="stylesheet" href="{{ asset('assets/css/theme.css') }}?ver=1.4.0">
 </head>
+<style>
+    .bc{
+
+        /*filter: blur(8px);*/
+        /*-webkit-filter: blur(8px);*/
+
+        /* Full height */
+        /*height: 100%;*/
+
+        /* Center and scale the image nicely */
+        background-position: center;
+        background-repeat: no-repeat;
+        /*background-size: cover;*/
+
+        background-size: 100% 100%;
+        background-image: url('{{ asset('img/login.jpg') }}')
+    }
+
+    .bg-text {
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(110, 107, 107, 0.4); /* Black w/opacity/see-through */
+        color: white;
+        font-weight: bold;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 2;
+        width: 80%;
+        padding: 20px;
+        text-align: center;
+    }
+</style>
 
 <body class="nk-body npc-crypto ui-clean pg-auth">
 <!-- app body @s -->
@@ -36,7 +69,13 @@
 
             </div><!-- .nk-block -->
         </div><!-- .nk-split-content -->
-        <div class="nk-split-content nk-split-stretch bg-lighter d-flex toggle-break-lg toggle-slide toggle-slide-right" data-content="athPromo" data-toggle-screen="lg" data-toggle-overlay="true">
+        <div class="nk-split-content nk-split-stretch bg-lighter d-flex toggle-break-lg toggle-slide toggle-slide-right bc" data-content="athPromo" data-toggle-screen="lg" data-toggle-overlay="true">
+            <div class="slider-wrap w-100 w-max-550px p-3 p-sm-5 m-auto text-center text-white" >
+                <div class="bg-text">
+                    <h3>Tang Eng-Le Logistics (M) Sdn. Bhd</h3>
+                    <h6>We Care Delivery!</h6>
+                </div>
+            </div><!-- .slider-wrap -->
         </div><!-- .nk-split-content -->
     </div><!-- .nk-split -->
 </div><!-- app body @e -->

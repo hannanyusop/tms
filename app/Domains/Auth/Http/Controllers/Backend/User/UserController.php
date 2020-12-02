@@ -12,33 +12,14 @@ use App\Domains\Auth\Services\RoleService;
 use App\Domains\Auth\Services\UserService;
 use App\Http\Controllers\Controller;
 
-/**
- * Class UserController.
- */
 class UserController extends Controller
 {
-    /**
-     * @var UserService
-     */
     protected $userService;
-
-    /**
-     * @var RoleService
-     */
     protected $roleService;
 
-    /**
-     * @var PermissionService
-     */
     protected $permissionService;
 
-    /**
-     * UserController constructor.
-     *
-     * @param  UserService  $userService
-     * @param  RoleService  $roleService
-     * @param  PermissionService  $permissionService
-     */
+
     public function __construct(UserService $userService, RoleService $roleService, PermissionService $permissionService)
     {
         $this->userService = $userService;
@@ -46,12 +27,11 @@ class UserController extends Controller
         $this->permissionService = $permissionService;
     }
 
-    /**
-     * @return \Illuminate\View\View
-     */
+
     public function index()
     {
-        return view('backend.auth.user.index');
+        $users = User::get();
+        return view('backend.auth.user.index', compact('users'));
     }
 
     /**

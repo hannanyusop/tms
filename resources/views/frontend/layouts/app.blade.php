@@ -37,6 +37,14 @@
                             <li class="nk-menu-heading">
                                 <h6 class="overline-title text-primary-alt">Applications</h6>
                             </li>
+                            @if(auth()->user()->isAdmin())
+                                <li class="nk-menu-item">
+                                    <a href="{{ route('admin.dashboard') }}" class="nk-menu-link">
+                                        <span class="nk-menu-icon"><em class="icon ni ni-swap-alt"></em></span>
+                                        <span class="nk-menu-text">Switch To Admin panel</span>
+                                    </a>
+                                </li><!-- .nk-menu-item -->
+                            @endif
                             <li class="nk-menu-item">
                                 <a href="{{ route('frontend.user.dashboard') }}" class="nk-menu-link">
                                     <span class="nk-menu-icon"><em class="icon ni ni-dashboard"></em></span>
