@@ -111,34 +111,45 @@
                         </td>
                         <td class="nk-tb-col nk-tb-col-tools">
                             <ul class="nk-tb-actions gx-1">
-                                <li class="nk-tb-action-hidden">
-                                    <a href="#" class="btn btn-trigger btn-icon" data-toggle="tooltip" data-placement="top" title="Wallet">
-                                        <em class="icon ni ni-wallet-fill"></em>
-                                    </a>
-                                </li>
-                                <li class="nk-tb-action-hidden">
-                                    <a href="#" class="btn btn-trigger btn-icon" data-toggle="tooltip" data-placement="top" title="Send Email">
-                                        <em class="icon ni ni-mail-fill"></em>
-                                    </a>
-                                </li>
-                                <li class="nk-tb-action-hidden">
-                                    <a href="#" class="btn btn-trigger btn-icon" data-toggle="tooltip" data-placement="top" title="Suspend">
-                                        <em class="icon ni ni-user-cross-fill"></em>
-                                    </a>
-                                </li>
                                 <li>
                                     <div class="drodown">
                                         <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
                                         <div class="dropdown-menu dropdown-menu-right">
                                             <ul class="link-list-opt no-bdr">
-                                                <li><a href="#"><em class="icon ni ni-focus"></em><span>Quick View</span></a></li>
-                                                <li><a href="#"><em class="icon ni ni-eye"></em><span>View Details</span></a></li>
-                                                <li><a href="#"><em class="icon ni ni-repeat"></em><span>Transaction</span></a></li>
-                                                <li><a href="#"><em class="icon ni ni-activity-round"></em><span>Activities</span></a></li>
-                                                <li class="divider"></li>
-                                                <li><a href="#"><em class="icon ni ni-shield-star"></em><span>Reset Pass</span></a></li>
-                                                <li><a href="#"><em class="icon ni ni-shield-off"></em><span>Reset 2FA</span></a></li>
-                                                <li><a href="#"><em class="icon ni ni-na"></em><span>Suspend User</span></a></li>
+                                                @if ($user->trashed() && $logged_in_user->hasAllAccess())
+                                                    <li><a href="{{ route('admin.auth.user.restore', $user) }}"><em class="icon ni ni-focus"></em><span>Restore</span></a></li>
+                                                    @if (config('boilerplate.access.user.permanently_delete'))
+                                                        <li><a href="{{ route('admin.auth.user.permanently-delete', $user) }}"><em class="icon ni ni-focus"></em><span>Delete Permanently</span></a></li>
+                                                    @endif
+                                                @else
+                                                    @if ($logged_in_user->hasAllAccess())
+                                                        <li><a href="{{ route('admin.auth.user.show', $user) }}"><em class="icon ni ni-eye"></em><span>Show</span></a></li>
+                                                        <li><a href="{{ route('admin.auth.user.edit', $user) }}"><em class="icon ni ni-edit"></em><span>Edit</span></a></li>
+                                                    @endif
+                                                        @if (! $user->isActive())
+                                                            <li><a href="{{ route('admin.auth.user.mark', [$user, 1]) }}"><em class="icon ni ni-focus"></em><span>@lang('Reactivate')</span></a></li>
+                                                        @endif
+                                                        @if ($user->id !== $logged_in_user->id && !$user->isMasterAdmin() && $logged_in_user->hasAllAccess())
+                                                            <li><a href="{{ route('admin.auth.user.destroy', $user) }}"><em class="icon ni ni-focus"></em><span>@lang('Reactivate')</span></a></li>
+                                                        @endif
+                                                        @if ($user->isMasterAdmin() && $logged_in_user->isMasterAdmin())
+                                                            <li><a href="{{ route('admin.auth.user.change-password', $user) }}"><em class="icon ni ni-focus"></em><span>{{ __('Change Password') }}</span></a></li>
+                                                    @elseif (!$user->isMasterAdmin() && // This is not the master admin
+                                                        $user->isActive() && // The account is active
+                                                        $user->id !== $logged_in_user->id && // It's not the person logged in
+                                                        ($logged_in_user->can('admin.access.user.change-password') ||$logged_in_user->can('admin.access.user.clear-session') ||
+                                                         $logged_in_user->can('admin.access.user.impersonate') ||$logged_in_user->can('admin.access.user.deactivate')))
+
+                                                            <li><a href="{{ route('admin.auth.user.change-password', $user) }}"><em class="icon ni ni-sign-kr"></em><span>{{ __('Change Password') }}</span></a></li>
+
+                                                            @if ($user->id !== $logged_in_user->id && !$user->isMasterAdmin())
+
+                                                                <li><a href="{{ route('admin.auth.user.clear-session', $user) }}"><em class="icon ni ni-focus"></em><span>@lang('Clear Session')</span></a></li>
+
+                                                                <li><a href="{{ route('admin.auth.user.mark', [$user, 0]) }}"><em class="icon ni ni-focus"></em><span>@lang('Deactivate')</span></a></li>
+                                                            @endif
+                                                        @endif
+                                                @endif
                                             </ul>
                                         </div>
                                     </div>
